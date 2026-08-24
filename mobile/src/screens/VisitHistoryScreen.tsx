@@ -50,7 +50,6 @@ export function VisitHistoryScreen({ route, navigation, theme }: Props) {
             </View>
             <Text style={s.typeText}>{item.interactionType.replace('_', ' ').toUpperCase()}</Text>
             {item.notes ? <Text style={s.notesText}>{item.notes}</Text> : null}
-            {item.contribution ? <Text style={s.contribText}>💰 Contribution: {item.contribution}</Text> : null}
             {item.nextFollowUp ? <Text style={s.followUpText}>📌 Follow-up: {item.nextFollowUp}</Text> : null}
           </View>
         )}
@@ -79,8 +78,8 @@ function makeStyles(t: Theme) {
     timeText: { fontSize: 13, color: t.textSecondary },
     typeText: { fontSize: 12, fontWeight: '600', color: t.accent, marginBottom: 4 },
     notesText: { fontSize: 13, color: t.text, marginTop: 4 },
-    contribText: { fontSize: 13, color: t.textSecondary, marginTop: 6 },
     followUpText: { fontSize: 13, color: t.accent, marginTop: 4 },
     empty: { textAlign: 'center', marginTop: 40, color: t.textSecondary, fontSize: 14 },
   });
 }
+

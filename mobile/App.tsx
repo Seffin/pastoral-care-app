@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, StatusBar, View, ActivityIndicator } from 'react-native';
 
 import { DashboardScreen } from './src/screens/DashboardScreen';
 import { VisitLoggerScreen } from './src/screens/VisitLoggerScreen';
@@ -12,30 +12,58 @@ import { VisitHistoryScreen } from './src/screens/VisitHistoryScreen';
 import { AllMembersScreen } from './src/screens/AllMembersScreen';
 
 import { getDb, getSetting } from './src/db/localDb';
-import { getTheme, Theme } from './src/theme';
+import { getTheme } from './src/theme';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [dbReady, setDbReady] = useState(false);
+  const [initError, setInitError] = useState<string | null>(null);
   const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
 
-  useEffect(() => {
-    getDb()
-      .then(async () => {
-        const mode = await getSetting('theme_mode', 'light');
-        setThemeMode(mode as 'light' | 'dark');
-        setDbReady(true);
-      })
-      .catch(console.error);
+  const initApp = useCallback(async () => {
+    try {
+      setInitError(null);
+      await getDb();
+      const mode = await getSetting('theme_mode', 'light');
+      setThemeMode(mode as 'light' | 'dark');
+      setDbReady(true);
+    } catch (err: any) {
+      console.error('Database initialization failed:', err);
+      setInitError(err?.message || String(err) || 'Failed to initialize SQLite database.');
+    }
   }, []);
 
-  if (!dbReady) {
-    return <Text style={{ marginTop: 50, textAlign: 'center', color: '#999' }}>Initializing database...</Text>;
-  }
+  useEffect(() => {
+    initApp();
+  }, [initApp]);
 
   const theme = getTheme(themeMode);
   const isDark = themeMode === 'dark';
+
+  if (initError) {
+    return (
+      <View style={[styles.centerContainer, { backgroundColor: theme.bg }]}>
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={theme.bg} />
+        <Text style={styles.errorIcon}>⚠️</Text>
+        <Text style={[styles.errorTitle, { color: theme.text }]}>Database Initialization Failed</Text>
+        <Text style={[styles.errorMessage, { color: theme.textSecondary }]}>{initError}</Text>
+        <TouchableOpacity style={[styles.retryBtn, { backgroundColor: theme.accent }]} onPress={initApp}>
+          <Text style={styles.retryBtnText}>Retry Initialization</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (!dbReady) {
+    return (
+      <View style={[styles.centerContainer, { backgroundColor: theme.bg }]}>
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={theme.bg} />
+        <ActivityIndicator size="large" color={theme.accent} />
+        <Text style={[styles.loadingText, { color: theme.textSecondary }]}>Initializing database...</Text>
+      </View>
+    );
+  }
 
   const navTheme = {
     ...(isDark ? DarkTheme : DefaultTheme),
@@ -115,9 +143,55 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  headerBtn: {
-    paddingHorizontal: 14, paddingVertical: 6, borderRadius: 8,
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
   },
-  headerBtnText: { color: '#FFF', fontWeight: '700', fontSize: 14 },
-  settingsBtn: { marginRight: 12, padding: 4 },
+  loadingText: {
+    marginTop: 14,
+    fontSize: 15,
+    fontWeight: '500',
+  },
+  errorIcon: {
+    fontSize: 42,
+    marginBottom: 12,
+  },
+  errorTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  errorMessage: {
+    fontSize: 14,
+    textAlign: 'center',
+    lineHeight: 20,
+    marginBottom: 20,
+  },
+  retryBtn: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 10,
+  },
+  retryBtnText: {
+    color: '#FFF',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  headerBtn: {
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
+  headerBtnText: {
+    color: '#FFF',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  settingsBtn: {
+    marginRight: 12,
+    padding: 4,
+  },
 });
