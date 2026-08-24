@@ -94,7 +94,13 @@ export function DashboardScreen({ navigation, theme }: Props) {
                   {item.phone ? `  ·  📞 ${item.phone}` : ''}
                 </Text>
                 <Text style={s.daysBadge}>
-                  {item.daysSinceContact >= 9999 ? 'Never visited' : `Last visited ${item.daysSinceContact} day${item.daysSinceContact !== 1 ? 's' : ''} ago`}
+                  {item.daysSinceContact >= 9999
+                    ? 'Never visited'
+                    : item.daysSinceContact === 0
+                    ? '✓ Visited today'
+                    : item.daysSinceContact === 1
+                    ? 'Visited yesterday'
+                    : `Last visited ${item.daysSinceContact} days ago`}
                 </Text>
               </View>
               <View style={{ alignItems: 'flex-end', gap: 6 }}>

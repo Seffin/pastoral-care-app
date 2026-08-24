@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { getAllMembers, MemberRecord } from '../db/localDb';
+import { getAllMembers, getSetting, MemberRecord } from '../db/localDb';
 import { Theme } from '../theme';
 
 type Filter = 'all' | 'pending' | 'visited';
@@ -12,8 +12,11 @@ export function AllMembersScreen({ navigation, theme }: Props) {
   const t = theme;
   const [members, setMembers] = useState<MemberRecord[]>([]);
   const [filter, setFilter] = useState<Filter>('all');
+  const [gapDays, setGapDays] = useState(90);
 
   const load = useCallback(async (f: Filter) => {
+    const gapMonths = parseInt(await getSetting('visit_gap_months', '3'), 10) || 3;
+    setGapDays(gapMonths * 30);
     const data = await getAllMembers(f);
     setMembers(data);
   }, []);
@@ -69,9 +72,13 @@ export function AllMembersScreen({ navigation, theme }: Props) {
                   {item.phone ? `  ·  📞 ${item.phone}` : ''}
                 </Text>
               </View>
-              <View style={[s.gapBadge, item.daysSinceContact >= 90 ? s.gapBadgeOverdue : s.gapBadgeOk]}>
+              <View style={[s.gapBadge, item.daysSinceContact >= gapDays ? s.gapBadgeOverdue : s.gapBadgeOk]}>
                 <Text style={s.gapBadgeText}>
-                  {item.daysSinceContact >= 9999 ? 'Never' : `${item.daysSinceContact}d`}
+                  {item.daysSinceContact >= 9999
+                    ? 'Never'
+                    : item.daysSinceContact === 0
+                    ? 'Today'
+                    : `${item.daysSinceContact}d`}
                 </Text>
               </View>
             </View>

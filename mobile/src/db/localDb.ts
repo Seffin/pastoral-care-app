@@ -130,9 +130,23 @@ function generateId(): string {
 
 function rowToMember(row: any): MemberRecord {
   const lastContact = row.last_contacted_at;
-  const daysSince = lastContact
-    ? Math.floor((Date.now() - new Date(lastContact).getTime()) / 86400000)
-    : 9999;
+  let daysSince = 9999;
+  if (lastContact && typeof lastContact === 'string') {
+    const parts = lastContact.trim().split(/[-T :]/);
+    if (parts.length >= 3) {
+      const y = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10) - 1;
+      const d = parseInt(parts[2], 10);
+      if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
+        const contactDate = new Date(y, m, d);
+        const today = new Date();
+        const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const diffMs = todayDate.getTime() - contactDate.getTime();
+        daysSince = Math.max(0, Math.floor(diffMs / 86400000));
+      }
+    }
+  }
+
   return {
     id: row.id,
     fullName: row.full_name,
@@ -223,13 +237,21 @@ export async function getAllMembers(filter?: 'all' | 'pending' | 'visited' | 'ov
   const gapDays = gapMonths * 30;
 
   const [results] = await db.executeSql(
-    `SELECT * FROM members WHERE is_active = 1 ORDER BY last_contacted_at ASC, full_name ASC`
+    `SELECT * FROM members WHERE is_active = 1`
   );
 
   let members: MemberRecord[] = [];
   for (let i = 0; i < results.rows.length; i++) {
     members.push(rowToMember(results.rows.item(i)));
   }
+
+  // Sort by daysSinceContact DESC (longest gap first; never contacted = 9999 first)
+  members.sort((a, b) => {
+    if (b.daysSinceContact !== a.daysSinceContact) {
+      return b.daysSinceContact - a.daysSinceContact;
+    }
+    return a.fullName.localeCompare(b.fullName);
+  });
 
   // Apply filters
   if (filter === 'pending' || filter === 'overdue') {
@@ -239,7 +261,12 @@ export async function getAllMembers(filter?: 'all' | 'pending' | 'visited' | 'ov
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
     members = members.filter(m => {
       if (!m.lastContactedAt) return false;
-      return new Date(m.lastContactedAt).getTime() >= monthStart;
+      const parts = m.lastContactedAt.trim().split(/[-T :]/);
+      if (parts.length < 3) return false;
+      const y = parseInt(parts[0], 10);
+      const mIdx = parseInt(parts[1], 10) - 1;
+      const d = parseInt(parts[2], 10);
+      return new Date(y, mIdx, d).getTime() >= monthStart;
     });
   }
 
@@ -258,16 +285,14 @@ export async function addVisit(
   const db = await getDb();
   const newId = generateId();
 
-  await db.transaction(async (tx) => {
-    await tx.executeSql(
-      `INSERT INTO visits (id, member_id, interaction_type, visit_date, time_of_day, notes, contribution, next_follow_up) VALUES (?, ?, ?, ?, ?, ?, '', ?)`,
-      [newId, memberId, interactionType, visitDate, timeOfDay, notes, nextFollowUp]
-    );
-    await tx.executeSql(
-      `UPDATE members SET last_contacted_at = ? WHERE id = ?`,
-      [visitDate, memberId]
-    );
-  });
+  await db.executeSql(
+    `INSERT INTO visits (id, member_id, interaction_type, visit_date, time_of_day, notes, contribution, next_follow_up) VALUES (?, ?, ?, ?, ?, ?, '', ?)`,
+    [newId, memberId, interactionType, visitDate, timeOfDay, notes, nextFollowUp]
+  );
+  await db.executeSql(
+    `UPDATE members SET last_contacted_at = ? WHERE id = ?`,
+    [visitDate, memberId]
+  );
 }
 
 export async function getVisitsForMember(memberId: string): Promise<VisitRecord[]> {
