@@ -17,12 +17,13 @@ offline, and stores all data locally on the phone.
 - **Dark / Light Mode**: Toggle in Settings. Persists across restarts.
 - **Members & Families**: Add individuals or families (with per-person name, age, hospitalization status).
 - **Phone & Location**: Store contact number and address/location for each member.
-- **Visit Logging**: Log visits with date, time of day (Morning→Late Night), interaction type, notes, and optional financial contribution.
+- **Visit Logging**: Log visits with a fast **scrollable date ribbon** (Today, Yesterday, past 30 days, or custom date input), time of day (Morning→Late Night), interaction type (In-Person, Call, Video, Text, Other), and pastoral notes.
 - **Visit History**: View all past visits for any member, sorted newest first.
 - **Master List with Filters**: "All", "Pending Visit", "Visited This Month".
 - **Priority = Days Since Contact**: Members with the longest gap since their last visit appear first. Everyone has equal priority.
 - **Member Status**: Mark members as Active, Vacation, Migrated, or Moved Out. Inactive members are not flagged as overdue.
 - **Configurable Gap**: Set the "overdue" threshold (default: 3 months) in Settings.
+- **Resilient Database Init**: Automatic table provisioning with error diagnostics and retry recovery.
 
 ## Repository layout
 
@@ -38,13 +39,14 @@ pastoral-care-app/
 │   │   ├── app.ts           # Express app factory
 │   │   ├── server.ts        # HTTP server entrypoint
 │   │   └── scheduler.ts     # Nightly cron job runner
-│   └── tests/                # Jest unit tests
+│   └── tests/               # Jest unit tests
 ├── mobile/                  # React Native offline-first client
 │   ├── db/schema.sql        # Local SQLCipher schema
 │   └── src/
+│       ├── db/              # Local SQLite database & migrations
 │       ├── sync/            # Outbox queue + sync manager
 │       ├── security/        # Biometric gate + on-device encryption
-│       └── screens/         # Dashboard & Visit Logger UI
+│       └── screens/         # Dashboard, Member & Visit Logger UI
 ├── web/                     # React web dashboard (online-only, shares the same API)
 │   └── src/
 │       ├── api/             # Fetch client with auto token refresh
@@ -81,6 +83,40 @@ Scores recalculate nightly via `backend/src/scheduler.ts`, and
 immediately after any bulk attendance ingestion
 (`POST /api/attendance/bulk`).
 
+## Getting started (mobile build & run)
+
+### 1. Build and Install Automatically on Connected Device
+```bash
+cd mobile
+npm install
+npm run android -- --mode Release
+```
+
+### 2. Build Release APK Manually (via Windows CMD / Terminal)
+```cmd
+cd mobile\android
+gradlew.bat assembleRelease
+```
+The output APK is generated at:
+`mobile\android\app\build\outputs\apk\release\app-release.apk`
+
+To install the generated APK on a connected phone via ADB:
+```cmd
+adb install -r android\app\build\outputs\apk\release\app-release.apk
+```
+
+### 3. Run in Debug Mode (with Metro Hot Reload)
+1. In Terminal 1:
+   ```cmd
+   cd mobile
+   npm start
+   ```
+2. In Terminal 2:
+   ```cmd
+   cd mobile
+   npm run android
+   ```
+
 ## Getting started (backend)
 
 ```bash
@@ -97,19 +133,6 @@ Generate an encryption key:
 ```bash
 openssl rand -base64 32
 ```
-
-```bash
-cd mobile
-npm install
-npm run android -- --mode Release    # Builds a standalone Release APK for Android
-```
-
-To install on a connected Android phone, make sure USB Debugging is enabled and run the above build command. It will compile the JavaScript bundle and install the app natively on your device so it can run completely offline.
-
-The mobile client bundles `react-native-sqlcipher-storage` for an
-encrypted local database and `react-native-biometrics` /
-`react-native-keychain` for the biometric-gated encryption key. See
-[`mobile/src/security/encryption.ts`](mobile/src/security/encryption.ts).
 
 ## Getting started (web)
 
@@ -135,7 +158,5 @@ tool aimed at desktop use (bulk imports are awkward on mobile).
 ## Status
 
 This is a scaffolded starting point: schema, priority engine (with
-tests), core API routes, the offline outbox/sync manager, and two key
-screens are implemented. Still to build out before production: full
-CRUD coverage for households/admin screens, push notifications for
-overdue follow-ups, structured audit logging, and a CI pipeline.
+tests), core API routes, the offline outbox/sync manager, and all key
+mobile screens (Dashboard, All Members, Add/Edit Member, Visit Logger, Visit History, Settings) are implemented.
