@@ -17,10 +17,11 @@ offline, and stores all data locally on the phone.
 - **Dark / Light Mode**: Toggle in Settings. Persists across restarts.
 - **Members & Families**: Add individuals or families (with per-person name, age, hospitalization status).
 - **Phone & Location**: Store contact number and address/location for each member.
-- **Visit Logging**: Log visits with a fast **scrollable date ribbon** (Today, Yesterday, past 30 days, or custom date input), time of day (Morning→Late Night), interaction type (In-Person, Call, Video, Text, Other), and pastoral notes.
+- **Visit Logging**: Log visits with a fast **scrollable date ribbon** (Today, Yesterday, past 30 days) and a **Modern 3-Wheel Scrollable Date Picker Modal** (Day, Month, Year wheel selectors), time of day (Morning→Late Night), interaction type (In-Person, Call, Video, Text, Other), and pastoral notes.
 - **Visit History**: View all past visits for any member, sorted newest first.
 - **Master List with Filters**: "All", "Pending Visit", "Visited This Month".
 - **Priority = Days Since Contact**: Members with the longest gap since their last visit appear first. Everyone has equal priority.
+- **Instant Status Sync**: Logging a visit immediately updates the member's last-contacted timestamp, moves them from "Pending Visit" to "Visited This Month", and clears overdue flags.
 - **Member Status**: Mark members as Active, Vacation, Migrated, or Moved Out. Inactive members are not flagged as overdue.
 - **Configurable Gap**: Set the "overdue" threshold (default: 3 months) in Settings.
 - **Resilient Database Init**: Automatic table provisioning with error diagnostics and retry recovery.
@@ -102,7 +103,11 @@ The output APK is generated at:
 
 To install the generated APK on a connected phone via ADB:
 ```cmd
-adb install -r android\app\build\outputs\apk\release\app-release.apk
+:: If 'adb' is not recognized in CMD, add platform-tools to PATH in your current window:
+set PATH=%PATH%;C:\Users\%USERNAME%\AppData\Local\Android\Sdk\platform-tools
+
+:: Install APK onto connected device:
+adb install -r app\build\outputs\apk\release\app-release.apk
 ```
 
 ### 3. Run in Debug Mode (with Metro Hot Reload)
