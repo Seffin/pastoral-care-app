@@ -1,0 +1,339 @@
+--------- beginning of system
+08-29 01:00:32.696  1659  2546 D ORMS_CORE: Set scene action identity: com.android.server.wm scene: , action: ORMS_ACTION_ACTIVITY_START, timeout: 500, handle: 1664215223065697865
+08-29 01:00:32.696  1659  1932 D ORMS_CORE: FinalSceneAction scene:1007 action:2 prio:7 start:56227578 timeout:500 timeout_left:500
+08-29 01:00:32.696  1659  1932 D ORMS_HISTORY: setSoCLimit sa
+08-29 01:00:32.696  1659  1932 D ORMS_HISTORY: no limit in sa : 1007, 2
+08-29 01:00:32.696  1659  1932 D ORMS_CORE: TCpuL:-1 TGpuL:-1 TCtrlL:-1 TModeOn:0 IdleS:0 PowerMode:NORMAL_MODE BenchMark:0 HaveCtrlD:0
+08-29 01:00:32.696  1659  1932 D ORMS_CORE: saConfig:,SAResult Info{minCore=[6, 2, -1]minFreq=[2000000, 1419000, -1]maxCore=[-1, -1, -1]maxFreq=[-1, -1, -1], ddr=-1, lpm=-1, sb=-1, prio=7, fpsgo=0, migrate= migfrate: , mask=110, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, nice=0, extActId=-1, extTime=-1, hardLevel=0}
+08-29 01:00:32.697  1659  2546 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.pastoralcaremobile/.MainActivity mCallingUid=2000} from uid 2000 and from pid 32393
+08-29 01:00:32.697  1659  1932 D ORMS_CORE: request mDecision:SAResult Info{ minCpuCore: 6 2 ,  minCpuFreq: 2000000 1419000 ,  maxCpuCore: -1 -1 ,  maxCpuFreq: -1 -1 ,  minGpuCore: -1 ,  minGpuFreq: -1 ,  maxGpuCore: -1 ,  maxGpuFreq: -1 , Lpm=-1, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, fpsgo=0, schedBoost=-1, ddrFreq=-1, migrate= migfrate: -1 -1 , hardLevel=false}
+08-29 01:00:32.697  1659  1932 D ORMS_CORE: package fpsgo check : write force_onoff 0
+--------- beginning of main
+08-29 01:00:32.697  1659  1932 I mtkpower_client: perf_lock_acq, hdl:13299, dur:0, num:6, tid:1932
+08-29 01:00:32.698  1659  2546 E ColorZoomWindowManagerService: onConfigurationChanged rotation not changed - prevRotation: 0
+08-29 01:00:32.698  1659  1932 I mtkpower_client: ret_hdl:13300
+08-29 01:00:32.699   848   922 I libPowerHal: [perfLockAcq] idx:0 hdl:13300 hint:-1 pid:1659 duration:0 => ret_hdl:13300
+08-29 01:00:32.699   848   922 I libPowerHal: [PE] scn:0 hdl:13300 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.699   848   922 I libPowerHal: system_server: cpu_ctrl set cpu freq: 2000000 -1 1419000 -1
+08-29 01:00:32.699   881   956 D DispPerfService: get hint proc=, idx=0 none
+08-29 01:00:32.702   881  1710 D DispPerfService: get hint proc=ActivityRecord{973c249 u0 com.pastoralcaremobile, idx=0 none
+08-29 01:00:32.704   848   867 I mtkpower@impl: [setMode] type:5, enabled:1
+08-29 01:00:32.704   848   922 I libPowerHal: [perfLockAcq] idx:1 hdl:13301 hint:11 pid:848 duration:30000 => ret_hdl:13301
+08-29 01:00:32.704   848   922 I libPowerHal: [PE] scn:1 hdl:13301 hint:11 comm:mtkpower@1.0-se pid:848
+08-29 01:00:32.701  1659  2546 E ColorZoomWindowManagerService: onConfigurationChanged rotation not changed - prevRotation: 0
+08-29 01:00:32.704  1659  2546 D ColorZoomWindowRUSConfigManager: isSupportZoomModeWithPolicyLocked: target = com.pastoralcaremobile/.MainActivity
+08-29 01:00:32.704  1659  2546 D ColorZoomWindowRUSConfigManager: targetPkg = com.pastoralcaremobile
+08-29 01:00:32.704  1659  2546 V ColorZoomWindowManagerService: unSupportZoom: false ,callingPid: 32393 ,sourceStack: null
+08-29 01:00:32.705   848   922 I libPowerHal: LAUNCH: cpu_ctrl set cpu freq: 2000000 -1 2050000 -1
+08-29 01:00:32.705   848   922 I libPowerHal: [PE] LAUNCH update cmd:1000000, param:0
+08-29 01:00:32.705   848   922 I libPowerHal: [PE] LAUNCH update cmd:1408300, param:100
+08-29 01:00:32.705   848   922 I libPowerHal: [PE] LAUNCH update cmd:1000000 param:0
+08-29 01:00:32.706   848   922 I libPowerHal: [perfLockAcq] idx:2 hdl:13302 hint:22 pid:848 duration:10000 => ret_hdl:13302
+08-29 01:00:32.706   848   922 I libPowerHal: [PE] scn:2 hdl:13302 hint:22 comm:mtkpower@1.0-se pid:848
+08-29 01:00:32.710  1659  2546 D ORMS_CORE: Set scene action identity: com.android.server.wm scene: , action: ORMS_ACTION_ACTIVITY_RESUME, timeout: 600, handle: 2079755034628125989
+08-29 01:00:32.710  1659  2546 V SensorManager: setScreenShotDisableImpl
+08-29 01:00:32.710  1659  2546 D SensorService: debug_oplusGeminiProximity setScreenShotDisable in SensorService
+08-29 01:00:32.711  1659  1932 D ORMS_CORE: FinalSceneAction scene:1007 action:2 prio:7 start:56227578 timeout:500 timeout_left:486
+08-29 01:00:32.711  1659  1932 D ORMS_HISTORY: setSoCLimit sa
+08-29 01:00:32.711  1659  1932 D ORMS_HISTORY: no limit in sa : 1007, 2
+08-29 01:00:32.711  1659  1932 D ORMS_CORE: TCpuL:-1 TGpuL:-1 TCtrlL:-1 TModeOn:0 IdleS:0 PowerMode:NORMAL_MODE BenchMark:0 HaveCtrlD:0
+08-29 01:00:32.711  1659  1932 D ORMS_CORE: saConfig:,SAResult Info{minCore=[6, 2, -1]minFreq=[2000000, 1419000, -1]maxCore=[-1, -1, -1]maxFreq=[-1, -1, -1], ddr=-1, lpm=-1, sb=-1, prio=7, fpsgo=0, migrate= migfrate: , mask=110, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, nice=0, extActId=-1, extTime=-1, hardLevel=0}
+08-29 01:00:32.711  1659  1932 D ORMS_CORE: request mDecision:SAResult Info{ minCpuCore: 6 2 ,  minCpuFreq: 2000000 1419000 ,  maxCpuCore: -1 -1 ,  maxCpuFreq: -1 -1 ,  minGpuCore: -1 ,  minGpuFreq: -1 ,  maxGpuCore: -1 ,  maxGpuFreq: -1 , Lpm=-1, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, fpsgo=0, schedBoost=-1, ddrFreq=-1, migrate= migfrate: -1 -1 , hardLevel=false}
+08-29 01:00:32.711  1659  2546 I ColorHansManager : ColorHansManager : resume pkg: com.pastoralcaremobile, uid:10258, prev pkg: com.oppo.launcher, prev uid: 10075
+08-29 01:00:32.711  1659  1932 I mtkpower_client: perf_lock_rel, hdl:13300, tid:1932
+08-29 01:00:32.711  1659  1932 I mtkpower_client: perf_lock_acq, hdl:13300, dur:0, num:6, tid:1932
+08-29 01:00:32.711  1659  2546 D ORMS_CORE: Set scene action identity: com.android.server.wm scene: , action: ORMS_ACTION_COLD_LAUNCH, timeout: 2000, handle: 755888145342615489
+08-29 01:00:32.711  1659  2546 V SensorManager: setScreenShotDisableImpl
+08-29 01:00:32.711  1659  2546 D SensorService: debug_oplusGeminiProximity setScreenShotDisable in SensorService
+08-29 01:00:32.711   848   922 I libPowerHal: [perfLockRel] hdl:13300, idx:0
+08-29 01:00:32.711   848   922 I libPowerHal: [PD] scn:0 hdl:13300 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.711  1659  2500 I ColorHansManager : enter fastfreezer
+08-29 01:00:32.712   881   881 I BufferQueueProducer: [FramebufferSurface](this:0xb4000078f4c33ed0,id:-1,api:1,p:881,c:881) queueBuffer: fps=0.32 dur=6309.05 max=6182.00 min=127.05
+08-29 01:00:32.712  1659  1932 I mtkpower_client: ret_hdl:13303
+08-29 01:00:32.712   848   922 I libPowerHal: [perfLockAcq] idx:0 hdl:13303 hint:-1 pid:1659 duration:0 => ret_hdl:13303
+08-29 01:00:32.712   826   902 I hwcomposer: [HWCDisplay] setColorTransformForJob ccorr_state=1->0 hint=1 force_disable_color=0 identity=0  
+08-29 01:00:32.712   848   922 I libPowerHal: [PE] scn:0 hdl:13303 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.712   826   902 I hwcomposer: [HWCDisplay] [Display_0 (type:1)] fps:0.317036,dur:6308.43,max:6181.80,min:126.63  
+08-29 01:00:32.712  1659  1932 D ORMS_CORE: FinalSceneAction scene:1007 action:1 prio:6 start:56227594 timeout:2000 timeout_left:2000
+08-29 01:00:32.712  1659  1932 D ORMS_HISTORY: setSoCLimit sa
+08-29 01:00:32.712  1659  1932 D ORMS_CORE: TCpuL:-1 TGpuL:-1 TCtrlL:-1 TModeOn:0 IdleS:0 PowerMode:NORMAL_MODE BenchMark:0 HaveCtrlD:0
+08-29 01:00:32.712  1659  1932 D ORMS_CORE: saConfig:,SAResult Info{minCore=[6, 2, -1]minFreq=[2000000, 2050000, -1]maxCore=[-1, -1, -1]maxFreq=[-1, -1, -1], ddr=0, lpm=0, sb=1, prio=6, fpsgo=0, migrate= migfrate: , mask=1110, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, nice=0, extActId=-1, extTime=-1, hardLevel=0}
+08-29 01:00:32.712  1659  1932 D ORMS_CORE: request mDecision:SAResult Info{ minCpuCore: 6 2 ,  minCpuFreq: 2000000 2050000 ,  maxCpuCore: -1 -1 ,  maxCpuFreq: -1 -1 ,  minGpuCore: -1 ,  minGpuFreq: -1 ,  maxGpuCore: -1 ,  maxGpuFreq: -1 , Lpm=0, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, fpsgo=0, schedBoost=1, ddrFreq=-1, migrate= migfrate: -1 -1 , hardLevel=false}
+08-29 01:00:32.713   826  1013 I hwcomposer: [DEV] 1024    0    0    0  
+08-29 01:00:32.713   826  1013 I hwcomposer: [DEV]    0  835    0    0  
+08-29 01:00:32.713   826  1013 I hwcomposer: [DEV]    0    0  626    0  
+08-29 01:00:32.713   826  1013 I hwcomposer: [DEV]    0    0    0 1024  
+08-29 01:00:32.713   826  1013 I hwcomposer: [DEV] [DEV] color transform: feature_flag=0  
+08-29 01:00:32.713  1659  1932 I mtkpower_client: perf_lock_rel, hdl:13303, tid:1932
+08-29 01:00:32.713  1659  1932 I mtkpower_client: perf_lock_acq, hdl:13303, dur:0, num:10, tid:1932
+08-29 01:00:32.713   848   922 I libPowerHal: [perfLockRel] hdl:13303, idx:0
+08-29 01:00:32.713   848   922 I libPowerHal: [PD] scn:0 hdl:13303 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.713  1659  2546 D ORMS_CORE: Set scene action identity: com.android.server.wm scene: , action: ORMS_ACTION_COLD_LAUNCH, timeout: 2000, handle: 7410349773659882584
+08-29 01:00:32.714  1659  2546 V SensorManager: setScreenShotDisableImpl
+08-29 01:00:32.714  1659  2546 D SensorService: debug_oplusGeminiProximity setScreenShotDisable in SensorService
+08-29 01:00:32.714  1659  1932 I mtkpower_client: ret_hdl:13304
+08-29 01:00:32.714   848   922 I libPowerHal: cmdSetting - unknown cmd:1c3c000, scmd:(null) ,param_1:0
+08-29 01:00:32.714   848   922 I libPowerHal: [perfLockAcq] idx:0 hdl:13304 hint:-1 pid:1659 duration:0 => ret_hdl:13304
+08-29 01:00:32.714   848   922 I libPowerHal: [PE] scn:0 hdl:13304 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.714  1659  2500 I ColorHansManager : freeze uid: 10116 package: com.nearme.gamecenter reason: fastfreezer|10258 scene: FastFreezerScene
+08-29 01:00:32.714  1659  1932 D ORMS_CORE: FinalSceneAction scene:1007 action:1 prio:6 start:56227594 timeout:2000 timeout_left:1998
+08-29 01:00:32.714  1659  1932 D ORMS_HISTORY: setSoCLimit sa
+08-29 01:00:32.714  1659  1932 D ORMS_CORE: TCpuL:-1 TGpuL:-1 TCtrlL:-1 TModeOn:0 IdleS:0 PowerMode:NORMAL_MODE BenchMark:0 HaveCtrlD:0
+08-29 01:00:32.714  1659  1932 D ORMS_CORE: saConfig:,SAResult Info{minCore=[6, 2, -1]minFreq=[2000000, 2050000, -1]maxCore=[-1, -1, -1]maxFreq=[-1, -1, -1], ddr=0, lpm=0, sb=1, prio=6, fpsgo=0, migrate= migfrate: , mask=1110, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, nice=0, extActId=-1, extTime=-1, hardLevel=0}
+08-29 01:00:32.714  1659  1932 D ORMS_CORE: request mDecision:SAResult Info{ minCpuCore: 6 2 ,  minCpuFreq: 2000000 2050000 ,  maxCpuCore: -1 -1 ,  maxCpuFreq: -1 -1 ,  minGpuCore: -1 ,  minGpuFreq: -1 ,  maxGpuCore: -1 ,  maxGpuFreq: -1 , Lpm=0, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, fpsgo=0, schedBoost=1, ddrFreq=-1, migrate= migfrate: -1 -1 , hardLevel=false}
+08-29 01:00:32.714  1659  1932 D ORMS_HISTORY: same limit, skip
+08-29 01:00:32.715  1659  1932 I mtkpower_client: perf_lock_rel, hdl:13304, tid:1932
+08-29 01:00:32.715  1659  1932 I mtkpower_client: perf_lock_acq, hdl:13304, dur:0, num:10, tid:1932
+08-29 01:00:32.715   848   922 I libPowerHal: [perfLockRel] hdl:13304, idx:0
+08-29 01:00:32.715   848   922 I libPowerHal: [PD] scn:0 hdl:13304 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.715  1659  2500 I ColorHansManager : freeze uid: 10006 package: com.snapchat.android reason: fastfreezer|10258 scene: FastFreezerScene
+08-29 01:00:32.715  1659  1932 I mtkpower_client: ret_hdl:13305
+08-29 01:00:32.715   848   922 I libPowerHal: cmdSetting - unknown cmd:1c3c000, scmd:(null) ,param_1:0
+08-29 01:00:32.715   848   922 I libPowerHal: [perfLockAcq] idx:0 hdl:13305 hint:-1 pid:1659 duration:0 => ret_hdl:13305
+08-29 01:00:32.715   848   922 I libPowerHal: [PE] scn:0 hdl:13305 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.716   848   922 I libPowerHal: [perfLockAcq] idx:3 hdl:13306 hint:21 pid:848 duration:10000 => ret_hdl:13306
+08-29 01:00:32.717   848   922 I libPowerHal: [PE] scn:3 hdl:13306 hint:21 comm:mtkpower@1.0-se pid:848
+08-29 01:00:32.717   848   922 I libPowerHal: [PE] MTKPOWER_HINT_PROCESS_CREATE update cmd:2020000, param:15
+08-29 01:00:32.717  1659  2500 I ColorHansManager : freeze uid: 10397 package: com.instagram.android reason: fastfreezer|10258 scene: FastFreezerScene
+08-29 01:00:32.717   881   881 D DispPerfService: Skip Bind Core, mCoreForSFBind:0
+08-29 01:00:32.717   848   922 I libPowerHal: [perfLockRel] hdl:13234, idx:-1
+08-29 01:00:32.717  1659  1684 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10258; state: DISABLED
+08-29 01:00:32.717  1659  1684 D CompatibilityChangeReporter: Compat change id reported: 135754954; UID 10258; state: ENABLED
+08-29 01:00:32.717  1659  1702 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10258; state: ENABLED
+08-29 01:00:32.719  1659  1685 D OppoPhoneWindowManager: RevertColorDrawableInDarkMode packageName = com.pastoralcaremobile; versionCode = 1;result = false; time:85461
+08-29 01:00:32.719  1659  2500 I ColorHansManager : freeze uid: 10404 package: com.facebook.katana reason: fastfreezer|10258 scene: FastFreezerScene
+08-29 01:00:32.722  1659  2500 I ColorHansManager : freeze uid: 10413 package: com.instagram.barcelona reason: fastfreezer|10258 scene: FastFreezerScene
+08-29 01:00:32.723   881   956 I SurfaceFlinger: [SF client] NEW(0xb4000078cdcf55c0) for (1659:system_server)
+08-29 01:00:32.723  1659  2500 I ColorHansManager : freeze uid: 10185 package: com.microsoft.copilot reason: fastfreezer|10258 scene: FastFreezerScene
+08-29 01:00:32.724  1659  2500 I ColorHansManager : freeze uid: 10206 package: com.realme.link reason: fastfreezer|10258 scene: FastFreezerScene
+08-29 01:00:32.724  1659  1685 D ColorViewRootUtil: initSwipState, isDisplayCompatApp false
+08-29 01:00:32.724  1659  1685 D ColorViewRootUtil: mScreenHeight 2400, mScreenWidth 1080
+08-29 01:00:32.725  1659  1685 D ViewRootImpl[pastoralcaremobile]: hardware acceleration = false , fakeHwAccelerated = true, sRendererDisabled = false, forceHwAccelerated = false, sSystemRendererDisabled = false
+08-29 01:00:32.725  1659  1685 D OppoDisplayPolicy: com.pastoralcaremobile, no change cutoutMode: 0
+08-29 01:00:32.725  1659  2500 I ColorHansManager : freeze uid: 10207 package: com.whatsapp reason: fastfreezer|10258 scene: FastFreezerScene
+08-29 01:00:32.726   881   956 D DispPerfService: get hint proc=, idx=0 none
+08-29 01:00:32.727   787   787 D Zygote  : Forked child process 32396
+08-29 01:00:32.727  1659  1685 E libEGL  : Invalid file path for libcolorx-loader.so
+08-29 01:00:32.728  1659  1685 I chatty  : uid=1000(system) android.anim identical 4 lines
+08-29 01:00:32.728  1659  1685 E libEGL  : Invalid file path for libcolorx-loader.so
+08-29 01:00:32.728  1659  1685 I InputTransport: Create ARC handle: 0xb4000078eed86060
+08-29 01:00:32.731  1659  1702 I ActivityManager: Start proc 32396:com.pastoralcaremobile/u0a258 for pre-top-activity {com.pastoralcaremobile/com.pastoralcaremobile.MainActivity}
+08-29 01:00:32.733  1659  1766 I InputDispatcher: Focus left window: Window{82ad4c1 u0 com.oppo.launcher/com.oppo.launcher.Launcher} in display 0
+08-29 01:00:32.733  1659  1766 I InputDispatcher: Window went away: Window{82ad4c1 u0 com.oppo.launcher/com.oppo.launcher.Launcher}
+08-29 01:00:32.733  1659  1685 D OppoDisplayPolicy: com.pastoralcaremobile, no change cutoutMode: 0
+08-29 01:00:32.735 32396 32396 E toralcaremobil: Unknown bits set in runtime_flags: 0x40000000
+08-29 01:00:32.735   881   954 D DispPerfService: get hint proc=, idx=0 none
+08-29 01:00:32.735   881   954 I BufferQueueConsumer: [](id:37100000ba6,api:0,p:-1,c:881) connect(): controlledByApp=false
+08-29 01:00:32.735   881   954 I BufferQueue: [unnamed-881-2982](this:0xb40000790895b258,id:2982,api:0,p:-1,c:-1) BufferQueue core=(881:/system/bin/surfaceflinger)
+08-29 01:00:32.736  1659  1685 D WindowManager: WARNING: focused app window can't receive keys, focusedApp:ActivityRecord{e306825 u0 com.oppo.launcher/.Launcher t2} window:Window{82ad4c1 u0 com.oppo.launcher/com.oppo.launcher.Launcher}
+08-29 01:00:32.737  1659  1685 D WindowManager: isRecentsAnimationConsumingAppInput:false isParentWindowHidden:false mAnimatingExit:false mRelayoutCalled:true
+08-29 01:00:32.737  1659  1685 W WindowManager: Changing focus fromWindow{82ad4c1 u0 com.oppo.launcher/com.oppo.launcher.Launcher} to null displayId=0 Callers=com.android.server.wm.RootWindowContainer.updateFocusedWindowLocked:497 com.android.server.wm.WindowManagerService.updateFocusedWindowLocked:6036 com.android.server.wm.WindowManagerService.relayoutWindow:2682 com.android.server.wm.Session.relayout:229 
+08-29 01:00:32.738 32396 32396 E toralcaremobil: Not starting debugger since process cannot load the jdwp agent.
+08-29 01:00:32.738  1659  1685 D Theia.NoFocusWindow: FocusWindowErrorScene CheckFreezeScreen
+08-29 01:00:32.739  1659  1685 V OplusZoomWindowDecorViewHelper: setLastReportedMergedConfiguration mZoomDisplayHeight: 2400 getDecorView.DecorView@957b236[pastoralcaremobile]
+08-29 01:00:32.740  1659  1685 D Surface : lockCanvas
+08-29 01:00:32.740   881   956 I BufferQueueProducer: [Splash Screen com.pastoralcaremobile#0](id:37100000ba6,api:2,p:1659,c:881) connect(): api=2 producerControlledByApp=false
+08-29 01:00:32.744 32396 32396 E RefClass: java.lang.reflect.InvocationTargetException
+08-29 01:00:32.746  1659  1766 V ActivityManager: New death recipient com.android.server.am.ActivityManagerService$AppDeathRecipient@e678537 for thread android.os.BinderProxy@c34aaa4
+08-29 01:00:32.753  1659  1766 D ORMS_CORE: Set scene action identity: com.android.server.wm scene: com.pastoralcaremobile, action: ORMS_ACTION_LAUNCH, timeout: 600, handle: 8723687255504612090
+08-29 01:00:32.753  1659  1766 I ColorAppSwitchManagerService: appswitch hasProcess ActivityRecord{973c249 u0 com.pastoralcaremobile/.MainActivity t3866}
+08-29 01:00:32.753  1659  1932 D ORMS_CORE: FG app changed to: com.pastoralcaremobile
+08-29 01:00:32.753  1659  1932 D ORMS_CORE: FinalSceneAction scene:1000 action:0 prio:5 start:56227635 timeout:2000 timeout_left:2000
+08-29 01:00:32.754  1659  1766 I ColorAppSwitchManagerService: appswitch hasProcess ActivityRecord{973c249 u0 com.pastoralcaremobile/.MainActivity t3866}
+08-29 01:00:32.754  1659  1932 D ORMS_HISTORY: setSoCLimit sa
+08-29 01:00:32.754  1659  1932 D ORMS_CORE: TCpuL:-1 TGpuL:-1 TCtrlL:-1 TModeOn:0 IdleS:0 PowerMode:NORMAL_MODE BenchMark:0 HaveCtrlD:0
+08-29 01:00:32.754  1659  1932 D ORMS_CORE: saConfig:,SAResult Info{minCore=[6, 2, -1]minFreq=[2000000, 2050000, -1]maxCore=[-1, -1, -1]maxFreq=[-1, -1, -1], ddr=0, lpm=0, sb=1, prio=5, fpsgo=0, migrate= migfrate: , mask=1110, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, nice=0, extActId=-1, extTime=-1, hardLevel=0}
+08-29 01:00:32.754   881   954 D DispPerfService: onframeavailable pid=1659, slot=0, seq=8503, name=system_server:Splash Screen com.pastoralcaremobile#0
+08-29 01:00:32.754  1659  1932 D ORMS_CORE: request mDecision:SAResult Info{ minCpuCore: 6 2 ,  minCpuFreq: 2000000 2050000 ,  maxCpuCore: -1 -1 ,  maxCpuFreq: -1 -1 ,  minGpuCore: -1 ,  minGpuFreq: -1 ,  maxGpuCore: -1 ,  maxGpuFreq: -1 , Lpm=0, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, fpsgo=0, schedBoost=1, ddrFreq=-1, migrate= migfrate: -1 -1 , hardLevel=false}
+08-29 01:00:32.754  1659  1932 I mtkpower_client: perf_lock_rel, hdl:13305, tid:1932
+08-29 01:00:32.754  1659  1766 I InputDispatcher: setFocusedApplication displayId=0 <invalid>
+08-29 01:00:32.754  1659  1932 I mtkpower_client: perf_lock_acq, hdl:13305, dur:0, num:10, tid:1932
+08-29 01:00:32.754   848   922 I libPowerHal: [perfNotifyAppState] foreground:com.pastoralcaremobile, pid:32396, uid:10258
+08-29 01:00:32.755   848   922 E UxUtility: notifyAppState error = NULL
+08-29 01:00:32.755   848   922 I TouchUtility: notifyAppState error = NULL
+08-29 01:00:32.755   848   922 I libPowerHal: [PD] scn:360 pack:com.oppo.launcher
+08-29 01:00:32.755   848   922 I libPowerHal: [PD] com.oppo.launcher update cmd:3408000, param:2
+08-29 01:00:32.755   848   922 I libPowerHal: [PD] (less) /proc/perfmgr/tchbst/user/usrtch set +prefix:touch_opp 2;
+08-29 01:00:32.755   848   922 I libPowerHal: [PD] com.oppo.launcher update cmd:3408100 param:100000000
+08-29 01:00:32.755  1659  2684 I ColorResourcePreloadManager: resume pkg: com.pastoralcaremobile, uid:10258, prev pkg: com.oppo.launcher, prev uid: 10075
+08-29 01:00:32.755   848   922 I libPowerHal: [PD] (more) /proc/perfmgr/tchbst/user/usrtch set +prefix:duration 100000000;
+08-29 01:00:32.755   848   922 I libPowerHal: [PD] com.oppo.launcher update cmd:3408200 param:100000
+08-29 01:00:32.756   848   922 I libPowerHal: [PD] (more) /proc/perfmgr/tchbst/user/usrtch set +prefix:active_time 100000;
+08-29 01:00:32.756   848   866 I mtkpower@impl: [notifyAppState] pc:1, com.oppo.launcher => com.pastoralcaremobile
+08-29 01:00:32.756   848   866 I mtkpower@impl: [check_work_req] i:0, msg:1 hdl:13305, wait
+08-29 01:00:32.756   848   922 I libPowerHal: [perfLockRel] hdl:13305, idx:0
+08-29 01:00:32.756   848   922 I libPowerHal: [PD] scn:0 hdl:13305 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.756   848   922 I libPowerHal: [PD] system_server update cmd:1410000 param:0
+08-29 01:00:32.757  2897 17929 W OppoGuardElf: ThermalControlUtils: mForegroundPkg=com.pastoralcaremobile
+08-29 01:00:32.758 32396 32396 I oplus.android.OplusFrameworkFactoryImpl: get feature:IOplusScreenModeFeature
+08-29 01:00:32.758  3261  3280 D ZoomAppController: ignore onAppEnter: Invalid cvActionFlag = 0
+08-29 01:00:32.758 32396 32396 I oplus.android.OplusFrameworkFactoryImpl: getOplusScreenModeFeature
+08-29 01:00:32.758  1659  1932 I mtkpower_client: ret_hdl:13307
+08-29 01:00:32.758   848   922 I libPowerHal: cmdSetting - unknown cmd:1c3c000, scmd:(null) ,param_1:0
+08-29 01:00:32.758   848   922 I libPowerHal: [perfLockAcq] idx:0 hdl:13307 hint:-1 pid:1659 duration:0 => ret_hdl:13307
+08-29 01:00:32.758   848   922 I libPowerHal: [PE] scn:0 hdl:13307 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.758   848   922 I libPowerHal: [PE] system_server update cmd:1410000, param:1
+08-29 01:00:32.759  1659  2546 I InputDispatcher: Window went away: Splash Screen com.pastoralcaremobile#0
+08-29 01:00:32.759   881   954 D DispPerfService: get hint proc=Surface(name=Task=3866), idx=0 none
+08-29 01:00:32.761   881   954 D DispPerfService: get hint proc=Surface(name=Task=2), idx=0 none
+08-29 01:00:32.763   881   954 D DispPerfService: get hint proc=Surface(name=2b2897a StatusBar), idx=0 none
+08-29 01:00:32.764   881   954 D DispPerfService: get hint proc=Surface(name=aef7daf NavigationBar0), idx=0 none
+08-29 01:00:32.767  5634  5634 V PhoneWindow: DecorView setVisiblity: visibility = 8, Parent = android.view.ViewRootImpl@c937e58, this = DecorView@b5bcbb1[InputMethod]
+08-29 01:00:32.768  2023  2042 D OplusCoreAppService: isPackageContainsOplusCertificates be called
+08-29 01:00:32.768  1659  1684 D OomAdjuster: TOP_APP is ProcessRecord{293bcf1 32396:com.pastoralcaremobile/u0a258} uid is 10258
+08-29 01:00:32.770   881   881 D OppoExLayer: ~Layer() sequence=8497, name=Surface(name=2b2897a StatusBar)/@0x700fce5 - animation-leash#1@0xb4000078cdd72000
+08-29 01:00:32.770   881   881 D OppoExLayer: ~Layer() sequence=8498, name=Surface(name=aef7daf NavigationBar0)/@0x697a3ba - animation-leash#1@0xb4000078cdd97000
+08-29 01:00:32.776  1659  2546 D AS.AudioService: getParameters() keyValuePairs:OPLUS_AUDIO_GET_FOCUS_STACK
+08-29 01:00:32.777  2897 17929 W OppoGuardElf: ThermalControllHandler: tempLevel=4,userMode=2,gameUserMode=-1,appType=-1,envTempType=0,appStates=[]
+08-29 01:00:32.778  2897 17929 W OppoGuardElf: ThermalControlUtils: mForegroundPkg=com.pastoralcaremobile
+08-29 01:00:32.778  2897 17929 W OppoGuardElf: ThermalControllHandler: tempGear=4,configItemName=common_config
+08-29 01:00:32.778  2897  6180 W OppoGuardElf: ThermalControllHandler: MSG_THERMAL_CONTROL_CATEGORY_CHANGED
+08-29 01:00:32.780 32396 32396 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+08-29 01:00:32.780 32396 32396 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+08-29 01:00:32.781  3366  3380 E oiface  : packageSwitch pkg com.pastoralcaremobile, enter
+08-29 01:00:32.781  3366  3380 E oiface  : current package is com.pastoralcaremobile and pid is 32396
+08-29 01:00:32.787 32396 32396 V SoLoader: Init System Loader delegate
+08-29 01:00:32.788  3366  3378 E oiface  : Average freq 942437 for 85s.
+08-29 01:00:32.788  3366  3378 E oiface  : Average freq 794817 for 85s.
+08-29 01:00:32.788  3366  3378 E oiface  : get gpu config path failed. Fallback to default.
+08-29 01:00:32.788  1659  4920 E ORMS_Platform : OplusResourceManagerPlatformUtils: readFile function exception:/sys/devices/platform/soc/5000000.qcom,kgsl-3d0/kgsl/kgsl-3d0/freq_table_mhz: open failed: ENOENT (No such file or directory)
+08-29 01:00:32.788  3366  3378 E oiface  : get gpu freq table failed
+08-29 01:00:32.789  1659  4920 D ORMS_CORE: Set scene action identity: android.app scene: , action: ORMS_ACTION_ACTIVITY_START, timeout: 600, handle: 1208952749307741934
+08-29 01:00:32.789  1659  1932 D ORMS_CORE: FinalSceneAction scene:1000 action:0 prio:5 start:56227635 timeout:2000 timeout_left:1964
+08-29 01:00:32.789  1659  1932 D ORMS_HISTORY: setSoCLimit sa
+08-29 01:00:32.789  1659  1932 D ORMS_CORE: TCpuL:-1 TGpuL:-1 TCtrlL:-1 TModeOn:0 IdleS:0 PowerMode:NORMAL_MODE BenchMark:0 HaveCtrlD:0
+08-29 01:00:32.790  1659  1932 D ORMS_CORE: saConfig:,SAResult Info{minCore=[6, 2, -1]minFreq=[2000000, 2050000, -1]maxCore=[-1, -1, -1]maxFreq=[-1, -1, -1], ddr=0, lpm=0, sb=1, prio=5, fpsgo=0, migrate= migfrate: , mask=1110, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, nice=0, extActId=-1, extTime=-1, hardLevel=0}
+08-29 01:00:32.790  1659  1932 D ORMS_CORE: request mDecision:SAResult Info{ minCpuCore: 6 2 ,  minCpuFreq: 2000000 2050000 ,  maxCpuCore: -1 -1 ,  maxCpuFreq: -1 -1 ,  minGpuCore: -1 ,  minGpuFreq: -1 ,  maxGpuCore: -1 ,  maxGpuFreq: -1 , Lpm=0, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, fpsgo=0, schedBoost=1, ddrFreq=-1, migrate= migfrate: -1 -1 , hardLevel=false}
+08-29 01:00:32.790  1659  1932 D ORMS_HISTORY: same limit, skip
+08-29 01:00:32.790  1659  1932 I mtkpower_client: perf_lock_rel, hdl:13307, tid:1932
+08-29 01:00:32.790  1659  1932 I mtkpower_client: perf_lock_acq, hdl:13307, dur:0, num:10, tid:1932
+08-29 01:00:32.790  3366  3378 E oiface  : client  not found, skipped
+08-29 01:00:32.790  3366  3378 D oiface  : forground package is com.pastoralcaremobile
+08-29 01:00:32.790   848   922 I libPowerHal: [perfLockRel] hdl:13307, idx:0
+08-29 01:00:32.790   848   922 I libPowerHal: [PD] scn:0 hdl:13307 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.790   848   922 I libPowerHal: [PD] system_server update cmd:1410000 param:0
+08-29 01:00:32.791  1659  1932 I mtkpower_client: ret_hdl:13308
+08-29 01:00:32.791   848   922 I libPowerHal: cmdSetting - unknown cmd:1c3c000, scmd:(null) ,param_1:0
+08-29 01:00:32.791   848   922 I libPowerHal: [perfLockAcq] idx:0 hdl:13308 hint:-1 pid:1659 duration:0 => ret_hdl:13308
+08-29 01:00:32.791   848   922 I libPowerHal: [PE] scn:0 hdl:13308 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.791   848   922 I libPowerHal: [PE] system_server update cmd:1410000, param:1
+08-29 01:00:32.794 32396 32424 E libEGL  : Invalid file path for libcolorx-loader.so
+08-29 01:00:32.798  3366  3378 E oiface  : get gpu config path failed. Fallback to default.
+08-29 01:00:32.798  1659  2524 E ORMS_Platform : OplusResourceManagerPlatformUtils: readFile function exception:/sys/devices/platform/soc/5000000.qcom,kgsl-3d0/kgsl/kgsl-3d0/freq_table_mhz: open failed: ENOENT (No such file or directory)
+08-29 01:00:32.798  3366  3378 E oiface  : get gpu freq table failed
+08-29 01:00:32.800 32396 32396 E MultiApp.Impl: OplusMultiAppImpl
+08-29 01:00:32.800 32396 32396 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
+08-29 01:00:32.805 32396 32396 I oplus.android.OplusFrameworkFactoryImpl: getOplusRedPacketManager
+08-29 01:00:32.815  1659  2249 D ColorAppListInterceptManager: shouldFilterTask
+08-29 01:00:32.815  1659  2249 D ColorAppListInterceptManager: shouldFilterTask::packageName = com.pastoralcaremobile
+08-29 01:00:32.816  1659  2249 D ColorAppListInterceptManager: shouldFilterTask
+08-29 01:00:32.816  1659  2249 D ColorAppListInterceptManager: shouldFilterTask::packageName = com.google.android.apps.maps
+08-29 01:00:32.821 32396 32396 W linker  : Warning: "/data/app/~~X8hXX5kscrkmzp0gkKWwEQ==/com.pastoralcaremobile-ogP4B6vZg7aV-dBfHUr3cw==/base.apk!/lib/arm64-v8a/libc++_shared.so" unused DT entry: unknown processor-specific (type 0x70000001 arg 0x0) (ignoring)
+08-29 01:00:32.824 32396 32396 W linker  : Warning: "/data/app/~~X8hXX5kscrkmzp0gkKWwEQ==/com.pastoralcaremobile-ogP4B6vZg7aV-dBfHUr3cw==/base.apk!/lib/arm64-v8a/libruntimeexecutor.so" unused DT entry: unknown processor-specific (type 0x70000001 arg 0x0) (ignoring)
+08-29 01:00:32.838 32396 32429 V RNKeychainManager: warming up started at 37418946066998
+08-29 01:00:32.839  1659  2549 D BiometricService: canAuthenticate: User=0, Caller=0, Authenticators=15
+08-29 01:00:32.840  1659  2549 E OplusCustomizeRestrictionManagerService: isBiometricDisabled start
+08-29 01:00:32.840  1659  2549 E OplusCustomizeRestrictionManagerService: isBiometricDisabled start
+08-29 01:00:32.840  1659  2549 D BiometricService: Package: com.pastoralcaremobile Authenticator ID: 0 Modality: 2 Reported Modality: 2 Status: 1
+08-29 01:00:32.840  1659  2549 D AuthService: canAuthenticate, userId: 0, callingUserId: 0, authenticators: 15, result: 0
+08-29 01:00:32.840  1659  2549 E OplusCustomizeRestrictionManagerService: isBiometricDisabled start
+08-29 01:00:32.841 32396 32429 D RNKeychainManager: Probe cipher storage: CipherStorageFacebookConceal
+08-29 01:00:32.841 32396 32429 D RNKeychainManager: Probe cipher storage: CipherStorageKeystoreAesCbc
+08-29 01:00:32.841 32396 32429 D RNKeychainManager: Probe cipher storage: CipherStorageKeystoreRsaEcb
+08-29 01:00:32.841 32396 32429 D RNKeychainManager: Selected storage: CipherStorageKeystoreRsaEcb
+08-29 01:00:32.842  1659  2549 D BiometricService: Authenticator ID(1) OEMStrength: 15 updatedStrength: 15 modality 8 authenticator: com.android.server.biometrics.face.FaceAuthenticator@dc10a57, authenticatorID 0 cannot participate in Keystore operations
+08-29 01:00:32.843  1110  1110 I keystore: del USRPKEY_AndroidKeyStore#supportsSecureHardware 10258
+08-29 01:00:32.844  1110  1110 I keystore: del USRSKEY_AndroidKeyStore#supportsSecureHardware 10258
+08-29 01:00:32.845  1659  2249 D ORMS_CORE: Set scene action identity: android.app scene: , action: ORMS_ACTION_ACTIVITY_START, timeout: 600, handle: 1406896169509813306
+08-29 01:00:32.845  1110  1110 I keystore: del USRCERT_AndroidKeyStore#supportsSecureHardware 10258
+08-29 01:00:32.845  1659  1932 D ORMS_CORE: FinalSceneAction scene:1000 action:0 prio:5 start:56227635 timeout:2000 timeout_left:1908
+08-29 01:00:32.846  1659  1932 D ORMS_HISTORY: setSoCLimit sa
+08-29 01:00:32.846  1659  1932 D ORMS_CORE: TCpuL:-1 TGpuL:-1 TCtrlL:-1 TModeOn:0 IdleS:0 PowerMode:NORMAL_MODE BenchMark:0 HaveCtrlD:0
+08-29 01:00:32.846  1659  1932 D ORMS_CORE: saConfig:,SAResult Info{minCore=[6, 2, -1]minFreq=[2000000, 2050000, -1]maxCore=[-1, -1, -1]maxFreq=[-1, -1, -1], ddr=0, lpm=0, sb=1, prio=5, fpsgo=0, migrate= migfrate: , mask=1110, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, nice=0, extActId=-1, extTime=-1, hardLevel=0}
+08-29 01:00:32.846  1659  1932 D ORMS_CORE: request mDecision:SAResult Info{ minCpuCore: 6 2 ,  minCpuFreq: 2000000 2050000 ,  maxCpuCore: -1 -1 ,  maxCpuFreq: -1 -1 ,  minGpuCore: -1 ,  minGpuFreq: -1 ,  maxGpuCore: -1 ,  maxGpuFreq: -1 , Lpm=0, clkscale=-1, schedwinstats=-1, twinpolicy=-1, fgwinpolicy=-1, bgwinpolicy=-1, schedPreferSpread=-1, colocate=-1, slb=-1, fpsgo=0, schedBoost=1, ddrFreq=-1, migrate= migfrate: -1 -1 , hardLevel=false}
+08-29 01:00:32.846  1659  1932 D ORMS_HISTORY: same limit, skip
+08-29 01:00:32.846  1659  1932 I mtkpower_client: perf_lock_rel, hdl:13308, tid:1932
+08-29 01:00:32.846  1110  1110 I keystore: del CACERT_AndroidKeyStore#supportsSecureHardware 10258
+08-29 01:00:32.846  1659  1932 I mtkpower_client: perf_lock_acq, hdl:13308, dur:0, num:10, tid:1932
+08-29 01:00:32.846   848   922 I libPowerHal: [perfLockRel] hdl:13308, idx:0
+08-29 01:00:32.846   848   922 I libPowerHal: [PD] scn:0 hdl:13308 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.846   848   922 I libPowerHal: [PD] system_server update cmd:1410000 param:0
+08-29 01:00:32.847  1659  1932 I mtkpower_client: ret_hdl:13309
+08-29 01:00:32.847   848   922 I libPowerHal: cmdSetting - unknown cmd:1c3c000, scmd:(null) ,param_1:0
+08-29 01:00:32.847   848   922 I libPowerHal: [perfLockAcq] idx:0 hdl:13309 hint:-1 pid:1659 duration:0 => ret_hdl:13309
+08-29 01:00:32.847   848   922 I libPowerHal: [PE] scn:0 hdl:13309 lock_user:system_server pid:1659 tid:1932 dur:0
+08-29 01:00:32.847   848   922 I libPowerHal: [PE] system_server update cmd:1410000, param:1
+08-29 01:00:32.847  1659  2549 D BiometricService: Authenticator ID(1) OEMStrength: 15 updatedStrength: 15 modality 8 authenticator: com.android.server.biometrics.face.FaceAuthenticator@dc10a57, authenticatorID 0 cannot participate in Keystore operations
+08-29 01:00:32.848 32396 32396 I SurfaceFactory: [static] sSurfaceFactory = com.mediatek.view.impl.SurfaceFactoryImpl@ad73e6b
+08-29 01:00:32.848   881   956 I SurfaceFlinger: [SF client] NEW(0xb4000078cdcf6400) for (32396:com.pastoralcaremobile)
+08-29 01:00:32.850   595   595 D TlcTeeKeyMaster: TEE_AddRngEntropy
+08-29 01:00:32.851 32396 32396 D ColorViewRootUtil: initSwipState, isDisplayCompatApp false
+08-29 01:00:32.851 32396 32396 D ColorViewRootUtil: mScreenHeight 2400, mScreenWidth 1080
+08-29 01:00:32.851   595   595 D TlcTeeKeyMaster: TEE_AddRngEntropy exiting with 0
+08-29 01:00:32.852   595   595 D TlcTeeKeyMaster: TEE_GenerateKey
+08-29 01:00:32.856 32396 32396 D ViewRootImpl[MainActivity]: hardware acceleration = true , fakeHwAccelerated = false, sRendererDisabled = false, forceHwAccelerated = false, sSystemRendererDisabled = false
+08-29 01:00:32.857  1659  2546 D OppoDisplayPolicy: com.pastoralcaremobile, no change cutoutMode: 0
+08-29 01:00:32.858   881   956 I SurfaceFlinger: [SF client] NEW(0xb4000078cdcf6e80) for (1659:system_server)
+08-29 01:00:32.859   881   956 D DispPerfService: get hint proc=2c8d7ef com.pastoralcaremobile, idx=0 none
+08-29 01:00:32.861 32396 32396 E libEGL  : Invalid file path for libcolorx-loader.so
+08-29 01:00:32.861 32396 32396 I chatty  : uid=10258(com.pastoralcaremobile) identical 4 lines
+08-29 01:00:32.861 32396 32396 E libEGL  : Invalid file path for libcolorx-loader.so
+08-29 01:00:32.862 32396 32396 I InputTransport: Create ARC handle: 0xb4000079325a9200
+08-29 01:00:32.862 32396 32396 V PhoneWindow: DecorView setVisiblity: visibility = 0, Parent = android.view.ViewRootImpl@26f1de0, this = DecorView@faa2899[MainActivity]
+08-29 01:00:32.867 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.drawer.ReactDrawerLayoutManager
+08-29 01:00:32.870 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.uimanager.LayoutShadowNode
+08-29 01:00:32.872 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollViewManager
+08-29 01:00:32.873 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollContainerViewManager
+08-29 01:00:32.873   595   595 D TlcTeeKeyMaster: TEE_GenerateKey exiting with 0
+08-29 01:00:32.875 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.progressbar.ReactProgressBarViewManager
+08-29 01:00:32.875 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.progressbar.ProgressBarShadowNode
+08-29 01:00:32.876 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactScrollViewManager
+08-29 01:00:32.878 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager
+08-29 01:00:32.879 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager$ReactSwitchShadowNode
+08-29 01:00:32.880 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.swiperefresh.SwipeRefreshLayoutManager
+08-29 01:00:32.882 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageViewManager
+08-29 01:00:32.882 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageShadowNode
+08-29 01:00:32.883 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.image.ReactImageManager
+08-29 01:00:32.884 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.modal.ReactModalHostManager
+08-29 01:00:32.885 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.modal.ModalHostShadowNode
+08-29 01:00:32.885 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactRawTextManager
+08-29 01:00:32.887 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactRawTextShadowNode
+08-29 01:00:32.888 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputManager
+08-29 01:00:32.890 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputShadowNode
+08-29 01:00:32.891 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactTextViewManager
+08-29 01:00:32.891 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactTextShadowNode
+08-29 01:00:32.891  1362  1393 I [BIP]   :  [BIP NL] event newaddr match dev 0
+08-29 01:00:32.891  1362  1393 I [BIP]   :  [BIP NL] IPv6: *:*:*:*:*:*:*:*
+08-29 01:00:32.891  1362  1393 I [BIP]   :  [BIP NL] addr state is 3, ipv4=*.*.*.*, ipv6=*:*:*:*:*:*:*:*
+08-29 01:00:32.892  1362  1393 I [BIP]   :  [BIP NL] event newaddr match dev 0
+08-29 01:00:32.892  1362  1393 I [BIP]   :  [BIP NL] IPv6: *:*:*:*:*:*:*:*
+08-29 01:00:32.892  1362  1393 I [BIP]   :  [BIP NL] addr state is 3, ipv4=*.*.*.*, ipv6=*:*:*:*:*:*:*:*
+08-29 01:00:32.892 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.view.ReactViewManager
+08-29 01:00:32.892  2286  9496 W AlarmManager: Unrecognized alarm listener com.android.networkstack.android.net.ip.IpClientLinkObserver$Dhcp6PdPreferredPrefixAlarmListener@6672e5e
+08-29 01:00:32.893 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextViewManager
+08-29 01:00:32.893 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextShadowNode
+08-29 01:00:32.893 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.unimplementedview.ReactUnimplementedViewManager
+08-29 01:00:32.894 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaProviderManager
+08-29 01:00:32.894 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewManager
+08-29 01:00:32.895 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewShadowNode
+08-29 01:00:32.895 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenContainerViewManager
+08-29 01:00:32.896 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenViewManager
+08-29 01:00:32.898 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ModalScreenViewManager
+08-29 01:00:32.898 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackViewManager
+08-29 01:00:32.898 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderConfigViewManager
+08-29 01:00:32.899 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderSubviewManager
+08-29 01:00:32.900 32396 32430 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.SearchBarManager
+08-29 01:00:32.905  1659  2546 D OppoDisplayPolicy: com.pastoralcaremobile, no change cutoutMode: 0
+08-29 01:00:32.905  1659  2546 I WindowManager: Relayout Window{2c8d7ef u0 com.pastoralcaremobile/com.pastoralcaremobile.MainActivity}: oldVis=4 newVis=0 focusMayChange = true
+08-29 01:00:32.907   881   956 D DispPerfService: get hint proc=com.pastoralcaremobile, idx=0 none
+08-29 01:00:32.907   881   956 I BufferQueueConsumer: [](id:37100000ba7,api:0,p:-1,c:881) connect(): controlledByApp=false
+08-29 01:00:32.907   881   956 I BufferQueue: [unnamed-881-2983](this:0xb40000798aec5258,id:2983,api:0,p:-1,c:-1) BufferQueue core=(881:/system/bin/surfaceflinger)
+08-29 01:00:32.909  1659  2546 W WindowManager: Changing focus fromnull to Window{2c8d7ef u0 com.pastoralcaremobile/com.pastoralcaremobile.MainActivity} displayId=0 Callers=com.android.server.wm.RootWindowContainer.updateFocusedWindowLocked:497 com.android.server.wm.WindowManagerService.updateFocusedWindowLocked:6036 com.android.server.wm.WindowManagerService.relayoutWindow:2682 com.android.server.wm.Session.relayout:229 
+08-29 01:00:32.910   826   902 I hwcomposer: [DBQ] (q2:0xb400007eb5a1d000) Buffer queue is created with size(3), m_id(3151)  
+08-29 01:00:32.910   826   902 I hwcomposer: [DBQ] (q2:0xb400007eb5a1d000) Reallocate Slot(0), pool(0 -> 0) size(0 -> 10368000)  
+08-29 01:00:32.910   881   956 D DispPerfService: get hint proc=Surface(name=2b2897a StatusBar), idx=0 none
+08-29 01:00:32.912   881   956 D DispPerfService: get hint proc=Surface(name=aef7daf NavigationBar0), idx=0 none
+08-29 01:00:32.914  1659  2546 D Theia.NoFocusWindow: FocusWindowErrorScene cancelCheckFreezeScreen
+08-29 01:00:32.915   595   595 D TlcTeeKeyMaster: TEE_ExportKey
+08-29 01:00:32.915   595   595 D TlcTeeKeyMaster: export_format = 0x00000000
+08-29 01:00:32.918 32396 32396 V OplusZoomWindowDecorViewHelper: setLastReportedMergedConfiguration mZoomDisplayHeight: 2400 getDecorView.DecorView@faa2899[MainActivity]
