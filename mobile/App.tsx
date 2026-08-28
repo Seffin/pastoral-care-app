@@ -1,69 +1,52 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Text, TouchableOpacity, StyleSheet, StatusBar, View, ActivityIndicator } from 'react-native';
+import { TouchableOpacity, Text, StatusBar, StyleSheet } from 'react-native';
 
-import { DashboardScreen } from './src/screens/DashboardScreen';
-import { VisitLoggerScreen } from './src/screens/VisitLoggerScreen';
-import { AddMemberScreen } from './src/screens/AddMemberScreen';
-import { EditMemberScreen } from './src/screens/EditMemberScreen';
-import { SettingsScreen } from './src/screens/SettingsScreen';
-import { VisitHistoryScreen } from './src/screens/VisitHistoryScreen';
-import { AllMembersScreen } from './src/screens/AllMembersScreen';
+// Screens
+import { OperationsDashboardScreen } from './src/screens/OperationsDashboardScreen';
+import { DashboardScreen }           from './src/screens/DashboardScreen';
+import { VisitHistoryScreen }        from './src/screens/VisitHistoryScreen';
+import { VisitLoggerScreen }         from './src/screens/VisitLoggerScreen';
+import { AddMemberScreen }           from './src/screens/AddMemberScreen';
+import { EditMemberScreen }          from './src/screens/EditMemberScreen';
+import { AllMembersScreen }          from './src/screens/AllMembersScreen';
+import { SettingsScreen }            from './src/screens/SettingsScreen';
+import { CottageMeetingsScreen }     from './src/screens/CottageMeetingsScreen';
+import { FastingPrayersScreen }      from './src/screens/FastingPrayersScreen';
+import { BibleClassesScreen }        from './src/screens/BibleClassesScreen';
+import { BackupScreen }              from './src/screens/BackupScreen';
 
-import { getDb, getSetting } from './src/db/localDb';
-import { getTheme } from './src/theme';
+// DB & Theme
+import { getDb, getSetting }  from './src/db/localDb';
+import { getTheme }           from './src/theme';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [dbReady, setDbReady] = useState(false);
-  const [initError, setInitError] = useState<string | null>(null);
   const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
 
-  const initApp = useCallback(async () => {
-    try {
-      setInitError(null);
-      await getDb();
-      const mode = await getSetting('theme_mode', 'light');
-      setThemeMode(mode as 'light' | 'dark');
-      setDbReady(true);
-    } catch (err: any) {
-      console.error('Database initialization failed:', err);
-      setInitError(err?.message || String(err) || 'Failed to initialize SQLite database.');
-    }
+  useEffect(() => {
+    getDb()
+      .then(async () => {
+        const mode = await getSetting('theme_mode', 'light');
+        setThemeMode(mode as 'light' | 'dark');
+        setDbReady(true);
+      })
+      .catch(err => {
+        console.error('[App] DB init failed:', err);
+        // Still mark as ready so user sees an error state, not a blank screen
+        setDbReady(true);
+      });
   }, []);
 
-  useEffect(() => {
-    initApp();
-  }, [initApp]);
+  if (!dbReady) {
+    return null; // Splash / loading handled by OS
+  }
 
   const theme = getTheme(themeMode);
   const isDark = themeMode === 'dark';
-
-  if (initError) {
-    return (
-      <View style={[styles.centerContainer, { backgroundColor: theme.bg }]}>
-        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={theme.bg} />
-        <Text style={styles.errorIcon}>⚠️</Text>
-        <Text style={[styles.errorTitle, { color: theme.text }]}>Database Initialization Failed</Text>
-        <Text style={[styles.errorMessage, { color: theme.textSecondary }]}>{initError}</Text>
-        <TouchableOpacity style={[styles.retryBtn, { backgroundColor: theme.accent }]} onPress={initApp}>
-          <Text style={styles.retryBtnText}>Retry Initialization</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  if (!dbReady) {
-    return (
-      <View style={[styles.centerContainer, { backgroundColor: theme.bg }]}>
-        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={theme.bg} />
-        <ActivityIndicator size="large" color={theme.accent} />
-        <Text style={[styles.loadingText, { color: theme.textSecondary }]}>Initializing database...</Text>
-      </View>
-    );
-  }
 
   const navTheme = {
     ...(isDark ? DarkTheme : DefaultTheme),
@@ -77,121 +60,99 @@ export default function App() {
     },
   };
 
-  const headerStyle = { backgroundColor: theme.headerBg };
-  const headerTintColor = theme.headerText;
+  const hStyle  = { backgroundColor: theme.headerBg };
+  const hTint   = theme.headerText;
+  const hTitle  = { fontWeight: '700' as const, fontSize: 16 };
+
+  // Shortcut to inject theme into any screen component
+  const screen = (Comp: React.ComponentType<any>, extra?: object) =>
+    (props: any) => <Comp {...props} theme={theme} {...extra} />;
 
   return (
     <>
-      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={theme.headerBg} />
+      <StatusBar
+        barStyle={isDark ? 'light-content' : 'dark-content'}
+        backgroundColor={theme.headerBg}
+      />
       <NavigationContainer theme={navTheme}>
-        <Stack.Navigator
-          screenOptions={{ headerStyle, headerTintColor, headerTitleStyle: { fontWeight: '700' } }}
-        >
-          {/* Dashboard */}
+        <Stack.Navigator screenOptions={{ headerStyle: hStyle, headerTintColor: hTint, headerTitleStyle: hTitle }}>
+
+          {/* ── Main operations hub ─────────────────────────────── */}
           <Stack.Screen
-            name="Dashboard"
+            name="Home"
             options={({ navigation }) => ({
               title: 'Pastoral Care',
               headerRight: () => (
-                <TouchableOpacity onPress={() => navigation.navigate('AddMember')} style={[styles.headerBtn, { backgroundColor: theme.accent }]}>
-                  <Text style={styles.headerBtnText}>+ Add</Text>
-                </TouchableOpacity>
-              ),
-              headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={styles.settingsBtn}>
-                  <Text style={{ fontSize: 22 }}>⚙️</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={s.iconBtn}>
+                  <Text style={{ fontSize: 20 }}>⚙️</Text>
                 </TouchableOpacity>
               ),
             })}
           >
-            {(props) => <DashboardScreen {...props} theme={theme} />}
+            {screen(OperationsDashboardScreen)}
           </Stack.Screen>
 
-          {/* Visit History */}
+          {/* ── Member visits ────────────────────────────────────── */}
+          <Stack.Screen
+            name="Members"
+            options={({ navigation }) => ({
+              title: 'House Visits',
+              headerRight: () => (
+                <TouchableOpacity
+                  style={[s.addBtn, { backgroundColor: theme.accent }]}
+                  onPress={() => navigation.navigate('AddMember')}
+                >
+                  <Text style={s.addBtnText}>+ Add</Text>
+                </TouchableOpacity>
+              ),
+            })}
+          >
+            {screen(DashboardScreen)}
+          </Stack.Screen>
+
+          <Stack.Screen name="AllMembers"   options={{ title: 'All Members' }}>
+            {screen(AllMembersScreen)}
+          </Stack.Screen>
           <Stack.Screen name="VisitHistory" options={{ title: 'Visit History' }}>
-            {(props) => <VisitHistoryScreen {...props} theme={theme} />}
+            {screen(VisitHistoryScreen)}
+          </Stack.Screen>
+          <Stack.Screen name="VisitLogger"  options={{ title: 'Log Visit' }}>
+            {screen(VisitLoggerScreen)}
+          </Stack.Screen>
+          <Stack.Screen name="AddMember"    options={{ title: 'Add Member / Family' }}>
+            {screen(AddMemberScreen)}
+          </Stack.Screen>
+          <Stack.Screen name="EditMember"   options={{ title: 'Edit Member' }}>
+            {screen(EditMemberScreen)}
           </Stack.Screen>
 
-          {/* Visit Logger */}
-          <Stack.Screen name="VisitLogger" options={{ title: 'Log Visit' }}>
-            {(props) => <VisitLoggerScreen {...props} theme={theme} />}
+          {/* ── Activity logs ────────────────────────────────────── */}
+          <Stack.Screen name="CottageMeetings" options={{ title: 'Cottage Meetings' }}>
+            {screen(CottageMeetingsScreen)}
+          </Stack.Screen>
+          <Stack.Screen name="FastingPrayers"  options={{ title: 'Fasting & Prayers' }}>
+            {screen(FastingPrayersScreen)}
+          </Stack.Screen>
+          <Stack.Screen name="BibleClasses"    options={{ title: 'Bible Classes' }}>
+            {screen(BibleClassesScreen)}
           </Stack.Screen>
 
-          {/* Add Member */}
-          <Stack.Screen name="AddMember" options={{ title: 'Add Member / Family' }}>
-            {(props) => <AddMemberScreen {...props} theme={theme} />}
+          {/* ── Utilities ────────────────────────────────────────── */}
+          <Stack.Screen name="Backup"   options={{ title: 'Backup & Restore' }}>
+            {screen(BackupScreen)}
           </Stack.Screen>
-
-          {/* Edit Member */}
-          <Stack.Screen name="EditMember" options={{ title: 'Edit Member' }}>
-            {(props) => <EditMemberScreen {...props} theme={theme} />}
-          </Stack.Screen>
-
-          {/* All Members */}
-          <Stack.Screen name="AllMembers" options={{ title: 'All Members' }}>
-            {(props) => <AllMembersScreen {...props} theme={theme} />}
-          </Stack.Screen>
-
-          {/* Settings */}
           <Stack.Screen name="Settings" options={{ title: 'Settings' }}>
             {(props) => <SettingsScreen {...props} theme={theme} onThemeChange={setThemeMode} />}
           </Stack.Screen>
+
         </Stack.Navigator>
       </NavigationContainer>
     </>
   );
 }
 
-const styles = StyleSheet.create({
-  centerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
-  },
-  loadingText: {
-    marginTop: 14,
-    fontSize: 15,
-    fontWeight: '500',
-  },
-  errorIcon: {
-    fontSize: 42,
-    marginBottom: 12,
-  },
-  errorTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  errorMessage: {
-    fontSize: 14,
-    textAlign: 'center',
-    lineHeight: 20,
-    marginBottom: 20,
-  },
-  retryBtn: {
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 10,
-  },
-  retryBtnText: {
-    color: '#FFF',
-    fontWeight: '700',
-    fontSize: 14,
-  },
-  headerBtn: {
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 8,
-  },
-  headerBtnText: {
-    color: '#FFF',
-    fontWeight: '700',
-    fontSize: 14,
-  },
-  settingsBtn: {
-    marginRight: 12,
-    padding: 4,
-  },
+const s = StyleSheet.create({
+  iconBtn: { padding: 4 },
+  addBtn: { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 8 },
+  addBtnText: { color: '#FFF', fontWeight: '700', fontSize: 13 },
 });

@@ -1,16 +1,15 @@
 import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
+import {
+  FlatList, RefreshControl, StyleSheet, Text,
+  TouchableOpacity, View, Alert,
+} from 'react-native';
 import { getAllMembers, deleteMember, getSetting, MemberRecord } from '../db/localDb';
 import { Theme } from '../theme';
 
-interface Props {
-  navigation: any;
-  theme: Theme;
-}
+interface Props { navigation: any; theme: Theme; }
 
-export function DashboardScreen({ navigation, theme }: Props) {
-  const t = theme;
+export function DashboardScreen({ navigation, theme: t }: Props) {
   const [members, setMembers] = useState<MemberRecord[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [gapDays, setGapDays] = useState(90);
@@ -20,8 +19,9 @@ export function DashboardScreen({ navigation, theme }: Props) {
     try {
       const gapMonths = parseInt(await getSetting('visit_gap_months', '3'), 10) || 3;
       setGapDays(gapMonths * 30);
-      const data = await getAllMembers('all');
-      setMembers(data);
+      setMembers(await getAllMembers('all'));
+    } catch (e) {
+      console.error('[Dashboard] refresh:', e);
     } finally {
       setRefreshing(false);
     }
@@ -32,59 +32,48 @@ export function DashboardScreen({ navigation, theme }: Props) {
   const handleDelete = (id: string, name: string) => {
     Alert.alert('Delete', `Remove "${name}"?`, [
       { text: 'Cancel', style: 'cancel' },
-      { text: 'Delete', style: 'destructive', onPress: async () => { await deleteMember(id); refresh(); } },
+      {
+        text: 'Delete', style: 'destructive', onPress: async () => {
+          try { await deleteMember(id); refresh(); }
+          catch (e) { console.error('[Dashboard] delete:', e); Alert.alert('Error', 'Could not delete member.'); }
+        },
+      },
     ]);
   };
 
-  const s = makeStyles(t);
+  const s = styles(t);
 
   const renderBadge = (m: MemberRecord) => {
     if (m.membershipStatus !== 'active') {
-      return (
-        <View style={[s.badge, { backgroundColor: t.badgeInfoBg }]}>
-          <Text style={s.badgeText}>{m.membershipStatus.replace('_', ' ').toUpperCase()}</Text>
-        </View>
-      );
+      return <BadgePill text={m.membershipStatus.replace('_', ' ').toUpperCase()} bg={t.badgeInfoBg} color={t.badgeText} />;
     }
     if (m.daysSinceContact >= gapDays) {
-      return (
-        <View style={[s.badge, { backgroundColor: t.badgeWarningBg }]}>
-          <Text style={s.badgeText}>⚠ OVERDUE</Text>
-        </View>
-      );
+      return <BadgePill text="⚠ OVERDUE" bg={t.badgeWarningBg} color={t.warning} />;
     }
-    const hasHospitalized = m.careFlags.includes('hospitalized') ||
-      m.familyMembers.some(fm => fm.isHospitalized);
-    if (hasHospitalized) {
-      return (
-        <View style={[s.badge, { backgroundColor: t.badgeCriticalBg }]}>
-          <Text style={s.badgeText}>🏥 HOSPITALIZED</Text>
-        </View>
-      );
+    const hospitalized = m.careFlags.includes('hospitalized') || m.familyMembers.some(f => f.isHospitalized);
+    if (hospitalized) {
+      return <BadgePill text="🏥 HOSPITALIZED" bg={t.badgeCriticalBg} color={t.danger} />;
     }
-    return (
-      <View style={[s.badge, { backgroundColor: t.badgeInfoBg }]}>
-        <Text style={s.badgeText}>✓ ON TRACK</Text>
-      </View>
-    );
+    return <BadgePill text="✓ ON TRACK" bg={t.badgeSuccessBg} color={t.success} />;
   };
 
   return (
-    <View style={s.container}>
-      {/* Quick filter bar */}
-      <TouchableOpacity style={s.allMembersButton} onPress={() => navigation.navigate('AllMembers')}>
-        <Text style={s.allMembersText}>📋 View All Members & Filters</Text>
+    <View style={s.root}>
+      <TouchableOpacity style={s.allBtn} onPress={() => navigation.navigate('AllMembers')}>
+        <Text style={s.allBtnText}>📋 All Members & Filters</Text>
       </TouchableOpacity>
 
       <FlatList
         data={members}
-        keyExtractor={(m) => m.id}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} />}
+        keyExtractor={m => m.id}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={t.accent} />}
+        ListEmptyComponent={<Text style={s.empty}>No members yet. Tap + Add to get started.</Text>}
+        contentContainerStyle={{ paddingBottom: 20 }}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={s.card}
-            onPress={() => navigation.navigate('VisitHistory', { memberId: item.id, memberName: item.fullName })}
             activeOpacity={0.7}
+            onPress={() => navigation.navigate('VisitHistory', { memberId: item.id, memberName: item.fullName })}
           >
             <View style={s.cardHeader}>
               <View style={{ flex: 1 }}>
@@ -93,65 +82,67 @@ export function DashboardScreen({ navigation, theme }: Props) {
                   {item.memberType === 'family' ? `👨‍👩‍👧‍👦 Family of ${item.familyCount}` : '👤 Individual'}
                   {item.phone ? `  ·  📞 ${item.phone}` : ''}
                 </Text>
-                <Text style={s.daysBadge}>
+                <Text style={[s.days, item.daysSinceContact >= gapDays && { color: t.warning }]}>
                   {item.daysSinceContact >= 9999
                     ? 'Never visited'
-                    : item.daysSinceContact === 0
-                    ? '✓ Visited today'
-                    : item.daysSinceContact === 1
-                    ? 'Visited yesterday'
-                    : `Last visited ${item.daysSinceContact} days ago`}
+                    : `Last visited ${item.daysSinceContact}d ago`}
                 </Text>
               </View>
-              <View style={{ alignItems: 'flex-end', gap: 6 }}>
-                <View style={{ flexDirection: 'row', gap: 6 }}>
-                  <TouchableOpacity
-                    style={s.editBtn}
-                    onPress={() => navigation.navigate('EditMember', { memberId: item.id })}
-                  >
-                    <Text style={s.editBtnText}>Edit</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={s.deleteBtn} onPress={() => handleDelete(item.id, item.fullName)}>
-                    <Text style={s.deleteBtnText}>Del</Text>
-                  </TouchableOpacity>
-                </View>
+              <View style={{ gap: 6 }}>
+                <TouchableOpacity
+                  style={[s.btn, { backgroundColor: t.accentLight }]}
+                  onPress={() => navigation.navigate('EditMember', { memberId: item.id })}
+                >
+                  <Text style={[s.btnText, { color: t.accent }]}>Edit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[s.btn, { backgroundColor: t.dangerLight }]}
+                  onPress={() => handleDelete(item.id, item.fullName)}
+                >
+                  <Text style={[s.btnText, { color: t.danger }]}>Del</Text>
+                </TouchableOpacity>
               </View>
             </View>
-            {renderBadge(item)}
-            {item.location ? <Text style={s.locationText}>📍 {item.location}</Text> : null}
+            <View style={s.badgeRow}>{renderBadge(item)}</View>
+            {item.location ? <Text style={s.location}>📍 {item.location}</Text> : null}
           </TouchableOpacity>
         )}
-        ListEmptyComponent={<Text style={s.empty}>No members yet. Tap "+ Add" to get started.</Text>}
-        contentContainerStyle={{ paddingBottom: 20 }}
       />
     </View>
   );
 }
 
-function makeStyles(t: Theme) {
+function BadgePill({ text, bg, color }: { text: string; bg: string; color: string }) {
+  return (
+    <View style={[badgeStyle.pill, { backgroundColor: bg }]}>
+      <Text style={[badgeStyle.text, { color }]}>{text}</Text>
+    </View>
+  );
+}
+
+const badgeStyle = StyleSheet.create({
+  pill: { alignSelf: 'flex-start', paddingHorizontal: 10, paddingVertical: 3, borderRadius: 99 },
+  text: { fontSize: 11, fontWeight: '700' },
+});
+
+function styles(t: Theme) {
   return StyleSheet.create({
-    container: { flex: 1, backgroundColor: t.bg },
-    allMembersButton: {
-      backgroundColor: t.accent, marginHorizontal: 14, marginTop: 10, marginBottom: 6,
-      padding: 12, borderRadius: 10, alignItems: 'center',
-    },
-    allMembersText: { color: '#FFFFFF', fontWeight: '700', fontSize: 14 },
+    root: { flex: 1, backgroundColor: t.bg },
+    allBtn: { backgroundColor: t.accent, margin: 14, padding: 13, borderRadius: 12, alignItems: 'center' },
+    allBtnText: { color: '#FFF', fontWeight: '700', fontSize: 14 },
     card: {
-      backgroundColor: t.card, marginHorizontal: 14, marginVertical: 5, borderRadius: 14,
-      padding: 16, shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 8,
-      elevation: 2, borderWidth: 1, borderColor: t.border,
+      backgroundColor: t.card, marginHorizontal: 14, marginBottom: 8,
+      borderRadius: 14, padding: 14,
+      borderWidth: 1, borderColor: t.border,
     },
     cardHeader: { flexDirection: 'row', justifyContent: 'space-between' },
-    name: { fontSize: 17, fontWeight: '700', color: t.text },
-    meta: { fontSize: 13, color: t.textSecondary, marginTop: 3 },
-    daysBadge: { fontSize: 13, color: t.accent, fontWeight: '600', marginTop: 4 },
-    editBtn: { backgroundColor: t.border, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 6 },
-    editBtnText: { fontSize: 12, fontWeight: '700', color: t.text },
-    deleteBtn: { backgroundColor: t.danger, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 6 },
-    deleteBtnText: { fontSize: 12, fontWeight: '700', color: '#FFF' },
-    badge: { alignSelf: 'flex-start', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99, marginTop: 10 },
-    badgeText: { fontSize: 11, fontWeight: '700', color: t.badgeText },
-    locationText: { fontSize: 12, color: t.textSecondary, marginTop: 6 },
-    empty: { textAlign: 'center', marginTop: 60, color: t.textSecondary, fontSize: 15 },
+    name: { fontSize: 16, fontWeight: '700', color: t.text },
+    meta: { fontSize: 12, color: t.textSecondary, marginTop: 3 },
+    days: { fontSize: 12, color: t.accent, fontWeight: '600', marginTop: 4 },
+    btn: { paddingHorizontal: 10, paddingVertical: 5, borderRadius: 7, alignItems: 'center' },
+    btnText: { fontSize: 12, fontWeight: '700' },
+    badgeRow: { marginTop: 10 },
+    location: { fontSize: 11, color: t.textMuted, marginTop: 6 },
+    empty: { textAlign: 'center', marginTop: 60, color: t.textMuted, fontSize: 14 },
   });
 }
