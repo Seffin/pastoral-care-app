@@ -166,131 +166,136 @@ function _rowToVisit(row: any): VisitRecord {
 }
 
 // ── Schema initialisation ─────────────────────────────────────────
+// IMPORTANT: react-native-sqlite-storage transaction callbacks must
+// be synchronous. Do NOT use async/await inside the callback.
+// Each migration runs in its own transaction so a failure (column
+// already exists) does not rollback the table-creation transaction.
 async function _initSchema(db: SQLite.SQLiteDatabase): Promise<void> {
-  await db.transaction(tx => {
-    // ── members ──────────────────────────────────────────────────
-    tx.executeSql(`
-      CREATE TABLE IF NOT EXISTS members (
-        id                TEXT PRIMARY KEY,
-        full_name         TEXT NOT NULL,
-        member_type       TEXT NOT NULL DEFAULT 'individual',
-        family_count      INTEGER NOT NULL DEFAULT 0,
-        family_members    TEXT NOT NULL DEFAULT '[]',
-        phone             TEXT NOT NULL DEFAULT '',
-        location          TEXT NOT NULL DEFAULT '',
-        membership_status TEXT NOT NULL DEFAULT 'active',
-        care_flags        TEXT NOT NULL DEFAULT '[]',
-        last_contacted_at TEXT,
-        priority_score    REAL NOT NULL DEFAULT 0,
-        is_active         INTEGER NOT NULL DEFAULT 1,
-        created_at        TEXT NOT NULL DEFAULT '',
-        updated_at        TEXT NOT NULL DEFAULT '',
-        synced            INTEGER NOT NULL DEFAULT 0
-      )
-    `);
 
-    // ── visits ────────────────────────────────────────────────────
-    tx.executeSql(`
-      CREATE TABLE IF NOT EXISTS visits (
-        id               TEXT PRIMARY KEY,
-        member_id        TEXT NOT NULL,
-        interaction_type TEXT NOT NULL,
-        visit_date       TEXT NOT NULL,
-        time_of_day      TEXT NOT NULL DEFAULT '',
-        notes            TEXT NOT NULL DEFAULT '',
-        contribution     TEXT NOT NULL DEFAULT '',
-        next_follow_up   TEXT,
-        created_at       TEXT NOT NULL DEFAULT '',
-        updated_at       TEXT NOT NULL DEFAULT '',
-        synced           INTEGER NOT NULL DEFAULT 0
-      )
-    `);
-
-    // ── cottage_meetings ──────────────────────────────────────────
-    tx.executeSql(`
-      CREATE TABLE IF NOT EXISTS cottage_meetings (
-        id               TEXT PRIMARY KEY,
-        meeting_date     TEXT NOT NULL,
-        time_of_day      TEXT NOT NULL DEFAULT '',
-        host_member_id   TEXT,
-        host_name_manual TEXT NOT NULL DEFAULT '',
-        attendees_count  INTEGER NOT NULL DEFAULT 0,
-        notes            TEXT NOT NULL DEFAULT '',
-        contribution     TEXT NOT NULL DEFAULT '',
-        created_at       TEXT NOT NULL DEFAULT '',
-        updated_at       TEXT NOT NULL DEFAULT '',
-        synced           INTEGER NOT NULL DEFAULT 0
-      )
-    `);
-
-    // ── fasting_prayers ───────────────────────────────────────────
-    tx.executeSql(`
-      CREATE TABLE IF NOT EXISTS fasting_prayers (
-        id               TEXT PRIMARY KEY,
-        prayer_date      TEXT NOT NULL,
-        time_of_day      TEXT NOT NULL DEFAULT '',
-        attendees_count  INTEGER NOT NULL DEFAULT 0,
-        prayer_requests  TEXT NOT NULL DEFAULT '',
-        notes            TEXT NOT NULL DEFAULT '',
-        contribution     TEXT NOT NULL DEFAULT '',
-        created_at       TEXT NOT NULL DEFAULT '',
-        updated_at       TEXT NOT NULL DEFAULT '',
-        synced           INTEGER NOT NULL DEFAULT 0
-      )
-    `);
-
-    // ── bible_classes ─────────────────────────────────────────────
-    tx.executeSql(`
-      CREATE TABLE IF NOT EXISTS bible_classes (
-        id              TEXT PRIMARY KEY,
-        class_date      TEXT NOT NULL,
-        time_of_day     TEXT NOT NULL DEFAULT '',
-        topic           TEXT NOT NULL DEFAULT '',
-        attendees_count INTEGER NOT NULL DEFAULT 0,
-        notes           TEXT NOT NULL DEFAULT '',
-        contribution    TEXT NOT NULL DEFAULT '',
-        created_at      TEXT NOT NULL DEFAULT '',
-        updated_at      TEXT NOT NULL DEFAULT '',
-        synced          INTEGER NOT NULL DEFAULT 0
-      )
-    `);
-
-    // ── settings ──────────────────────────────────────────────────
-    tx.executeSql(`
-      CREATE TABLE IF NOT EXISTS settings (
-        key   TEXT PRIMARY KEY,
-        value TEXT NOT NULL
-      )
-    `);
-
-    // ── Default settings (idempotent) ─────────────────────────────
-    tx.executeSql(`INSERT OR IGNORE INTO settings (key, value) VALUES ('visit_gap_months', '3')`);
-    tx.executeSql(`INSERT OR IGNORE INTO settings (key, value) VALUES ('theme_mode', 'light')`);
-
-    // ── Safe migrations for legacy installs ───────────────────────
-    const migrate = (table: string, col: string, type: string, def: string) => {
-      tx.executeSql(
-        `ALTER TABLE ${table} ADD COLUMN ${col} ${type} NOT NULL DEFAULT ${def}`,
-        [],
-        () => {},
-        () => false, // column already exists — ignore
-      );
-    };
-
-    migrate('members', 'member_type', 'TEXT', "'individual'");
-    migrate('members', 'family_count', 'INTEGER', '0');
-    migrate('members', 'family_members', 'TEXT', "'[]'");
-    migrate('members', 'phone', 'TEXT', "''");
-    migrate('members', 'location', 'TEXT', "''");
-    migrate('members', 'created_at', 'TEXT', "''");
-    migrate('members', 'updated_at', 'TEXT', "''");
-    migrate('members', 'synced', 'INTEGER', '0');
-
-    migrate('visits', 'created_at', 'TEXT', "''");
-    migrate('visits', 'updated_at', 'TEXT', "''");
-    migrate('visits', 'synced', 'INTEGER', '0');
+  // ── Transaction 1: Create all tables ────────────────────────────
+  await new Promise<void>((resolve, reject) => {
+    db.transaction(
+      tx => {
+        tx.executeSql(`
+          CREATE TABLE IF NOT EXISTS members (
+            id                TEXT PRIMARY KEY,
+            full_name         TEXT NOT NULL,
+            member_type       TEXT NOT NULL DEFAULT 'individual',
+            family_count      INTEGER NOT NULL DEFAULT 0,
+            family_members    TEXT NOT NULL DEFAULT '[]',
+            phone             TEXT NOT NULL DEFAULT '',
+            location          TEXT NOT NULL DEFAULT '',
+            membership_status TEXT NOT NULL DEFAULT 'active',
+            care_flags        TEXT NOT NULL DEFAULT '[]',
+            last_contacted_at TEXT,
+            priority_score    REAL NOT NULL DEFAULT 0,
+            is_active         INTEGER NOT NULL DEFAULT 1,
+            created_at        TEXT NOT NULL DEFAULT '',
+            updated_at        TEXT NOT NULL DEFAULT '',
+            synced            INTEGER NOT NULL DEFAULT 0
+          )
+        `);
+        tx.executeSql(`
+          CREATE TABLE IF NOT EXISTS visits (
+            id               TEXT PRIMARY KEY,
+            member_id        TEXT NOT NULL,
+            interaction_type TEXT NOT NULL,
+            visit_date       TEXT NOT NULL,
+            time_of_day      TEXT NOT NULL DEFAULT '',
+            notes            TEXT NOT NULL DEFAULT '',
+            contribution     TEXT NOT NULL DEFAULT '',
+            next_follow_up   TEXT,
+            created_at       TEXT NOT NULL DEFAULT '',
+            updated_at       TEXT NOT NULL DEFAULT '',
+            synced           INTEGER NOT NULL DEFAULT 0
+          )
+        `);
+        tx.executeSql(`
+          CREATE TABLE IF NOT EXISTS cottage_meetings (
+            id               TEXT PRIMARY KEY,
+            meeting_date     TEXT NOT NULL,
+            time_of_day      TEXT NOT NULL DEFAULT '',
+            host_member_id   TEXT,
+            host_name_manual TEXT NOT NULL DEFAULT '',
+            attendees_count  INTEGER NOT NULL DEFAULT 0,
+            notes            TEXT NOT NULL DEFAULT '',
+            contribution     TEXT NOT NULL DEFAULT '',
+            created_at       TEXT NOT NULL DEFAULT '',
+            updated_at       TEXT NOT NULL DEFAULT '',
+            synced           INTEGER NOT NULL DEFAULT 0
+          )
+        `);
+        tx.executeSql(`
+          CREATE TABLE IF NOT EXISTS fasting_prayers (
+            id               TEXT PRIMARY KEY,
+            prayer_date      TEXT NOT NULL,
+            time_of_day      TEXT NOT NULL DEFAULT '',
+            attendees_count  INTEGER NOT NULL DEFAULT 0,
+            prayer_requests  TEXT NOT NULL DEFAULT '',
+            notes            TEXT NOT NULL DEFAULT '',
+            contribution     TEXT NOT NULL DEFAULT '',
+            created_at       TEXT NOT NULL DEFAULT '',
+            updated_at       TEXT NOT NULL DEFAULT '',
+            synced           INTEGER NOT NULL DEFAULT 0
+          )
+        `);
+        tx.executeSql(`
+          CREATE TABLE IF NOT EXISTS bible_classes (
+            id              TEXT PRIMARY KEY,
+            class_date      TEXT NOT NULL,
+            time_of_day     TEXT NOT NULL DEFAULT '',
+            topic           TEXT NOT NULL DEFAULT '',
+            attendees_count INTEGER NOT NULL DEFAULT 0,
+            notes           TEXT NOT NULL DEFAULT '',
+            contribution    TEXT NOT NULL DEFAULT '',
+            created_at      TEXT NOT NULL DEFAULT '',
+            updated_at      TEXT NOT NULL DEFAULT '',
+            synced          INTEGER NOT NULL DEFAULT 0
+          )
+        `);
+        tx.executeSql(`
+          CREATE TABLE IF NOT EXISTS settings (
+            key   TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+          )
+        `);
+        tx.executeSql(`INSERT OR IGNORE INTO settings (key, value) VALUES ('visit_gap_months', '3')`);
+        tx.executeSql(`INSERT OR IGNORE INTO settings (key, value) VALUES ('theme_mode', 'light')`);
+      },
+      err => { console.error('[DB] schema init failed:', err); reject(err); },
+      () => resolve(),
+    );
   });
+
+  // ── Transaction 2+: Migrations (each in its own transaction) ────
+  // Running separately so a duplicate-column error (column exists)
+  // only rolls back that single ALTER and not the whole schema.
+  const migrations: Array<[string, string, string, string]> = [
+    ['members', 'member_type',   'TEXT',    "'individual'"],
+    ['members', 'family_count',  'INTEGER', '0'],
+    ['members', 'family_members','TEXT',    "'[]'"],
+    ['members', 'phone',         'TEXT',    "''"],
+    ['members', 'location',      'TEXT',    "''"],
+    ['members', 'created_at',    'TEXT',    "''"],
+    ['members', 'updated_at',    'TEXT',    "''"],
+    ['members', 'synced',        'INTEGER', '0'],
+    ['visits',  'created_at',    'TEXT',    "''"],
+    ['visits',  'updated_at',    'TEXT',    "''"],
+    ['visits',  'synced',        'INTEGER', '0'],
+  ];
+
+  for (const [table, col, type, def] of migrations) {
+    // Each migration is fire-and-forget; ignore errors (column may exist)
+    await new Promise<void>(resolve => {
+      db.transaction(
+        tx => { tx.executeSql(`ALTER TABLE ${table} ADD COLUMN ${col} ${type} NOT NULL DEFAULT ${def}`); },
+        () => resolve(),   // error = column exists, that's fine
+        () => resolve(),   // success
+      );
+    });
+  }
 }
+
 
 // ─────────────────────────────────────────────────────────────────
 //  SETTINGS
