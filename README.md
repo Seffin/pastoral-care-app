@@ -1,6 +1,6 @@
-# Pastoral Care App
+# Church Connect
 
-An offline-first mobile app for pastoral staff to track and manage all church ministry activities — completely without internet access.
+An offline-first mobile app for church communities to track ministry activities, member care, and gatherings — usable by anyone, not just pastors.
 
 ---
 

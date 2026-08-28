@@ -382,7 +382,11 @@ export async function getAllMembers(
       tx.executeSql(
         `SELECT * FROM members
           WHERE is_active = 1
-          ORDER BY last_contacted_at ASC NULLS FIRST, full_name ASC`,
+          ORDER BY
+            CASE WHEN last_contacted_at IS NULL THEN 0 ELSE 1 END ASC,
+            last_contacted_at ASC,
+            full_name ASC`,
+        // ↑ SQLite does not support NULLS FIRST — simulate it with CASE
         [],
         (_, r) => {
           let list: MemberRecord[] = [];

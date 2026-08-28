@@ -81,7 +81,7 @@ export default function App() {
           <Stack.Screen
             name="Home"
             options={({ navigation }) => ({
-              title: 'Pastoral Care',
+              title: 'Church Connect',
               headerRight: () => (
                 <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={s.iconBtn}>
                   <Text style={{ fontSize: 20 }}>⚙️</Text>

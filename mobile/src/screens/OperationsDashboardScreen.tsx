@@ -24,7 +24,7 @@ const MODULES: ModuleCard[] = [
     id: 'visits',
     icon: '🏠',
     title: 'House Visits',
-    subtitle: 'Member pastoral visits log',
+    subtitle: 'Home visit records',
     screen: 'Members',
     tintKey: 'visitTint',
     accentColor: '#3B82F6',
@@ -95,9 +95,9 @@ export function OperationsDashboardScreen({ navigation, theme: t }: Props) {
     >
       {/* ── Header banner ─────────────────────────────────────── */}
       <View style={s.banner}>
-        <Text style={s.bannerGreeting}>Good day, Pastor 👋</Text>
-        <Text style={s.bannerTitle}>Pastoral Care</Text>
-        <Text style={s.bannerSub}>Manage your church community</Text>
+        <Text style={s.bannerGreeting}>Welcome 👋</Text>
+        <Text style={s.bannerTitle}>Church Connect</Text>
+        <Text style={s.bannerSub}>Community care management</Text>
       </View>
 
       {/* ── Stats row ─────────────────────────────────────────── */}
